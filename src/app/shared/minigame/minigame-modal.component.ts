@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { closeMg } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-minigame-modal',
@@ -6,4 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './minigame-modal.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MinigameModalComponent {}
+export class MinigameModalComponent {
+  closeMg(): void {
+    closeMg();
+  }
+}

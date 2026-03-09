@@ -8,7 +8,7 @@
 
 [![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)]()
 [![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)]()
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)]()
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)]()
 [![Angular](https://img.shields.io/badge/Angular_21-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)]()
 
@@ -63,32 +63,49 @@
 ## 🗂️ Estructura
 
 ```
-portfolio/
-└── index.html          # Todo el portfolio en un solo archivo
+src/app/
+├── components/
+│   ├── hero/
+│   ├── story/
+│   ├── about/
+│   ├── cv/
+│   ├── skills-inventory/
+│   ├── projects-map/
+│   ├── boss-fight/
+│   ├── testimonials/
+│   ├── github-stats/
+│   └── contact/
+├── shared/
+│   ├── topbar/
+│   ├── insert-coin/
+│   ├── achievements/
+│   └── minigame/
+├── services/
+│   ├── score.service.ts
+│   ├── audio.service.ts
+│   └── achievements.service.ts
+└── legacy/
+    └── legacy.ts
 ```
 
-> El portfolio está construido en **HTML/CSS/JS puro**, sin dependencias ni bundlers.
+> El portfolio está construido en **Angular 21 + TypeScript**, con componentes standalone.
 > Solo usa Google Fonts para las tipografías `Press Start 2P` y `VT323`.
 
 ---
 
 ## 🚀 Uso
 
-### Opción 1 — Abrir directo
+### Opción 1 — Angular Dev Server
 
 ```bash
 # Clona el repo
 git clone https://github.com/DanielC-04/portfolio-devworld.git
 
-# Abre el archivo en tu browser
-open index.html
-```
+# Instala dependencias
+npm install
 
-### Opción 2 — Live Server (recomendado)
-
-```bash
-# Con VS Code, instala la extensión Live Server
-# Click derecho en index.html → "Open with Live Server"
+# Levanta el servidor
+npm start
 ```
 
 ---
@@ -106,42 +123,18 @@ open index.html
 
 ## 🛠️ Stack Tecnológico
 
-- **HTML5** — estructura semántica en un único archivo
+- **Angular 21** — componentes standalone
+- **TypeScript** — tipado estricto
 - **CSS3 puro** — variables CSS, flexbox, grid, `@keyframes`, `clamp()`
-- **JavaScript vanilla** — sin frameworks, sin dependencias
 - **Web Audio API** — motor de sonidos 8-bit y BGM
 - **Canvas API** — minijuego runner pixel art
 - **Google Fonts** — Press Start 2P + VT323
 
 ---
 
-## 🔜 Próxima Versión — Angular 21
+## 🔜 Próxima Versión
 
-Este portfolio está siendo migrado a **Angular 21** como proyecto standalone.
-
-```
-src/app/
-├── components/
-│   ├── hero/
-│   ├── story/
-│   ├── about/
-│   ├── cv/
-│   ├── skills-inventory/
-│   ├── world-map/
-│   ├── boss-fight/
-│   ├── aldeanos/
-│   ├── github-stats/
-│   └── contact/
-├── shared/
-│   ├── topbar/
-│   ├── insert-coin/
-│   ├── achievements/
-│   └── minigame/
-└── services/
-    ├── score.service.ts
-    ├── audio.service.ts
-    └── achievements.service.ts
-```
+Separacion total de la logica legacy en servicios y componentes.
 
 ---
 

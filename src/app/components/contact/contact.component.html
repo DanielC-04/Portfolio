@@ -15,7 +15,7 @@
           <div class="sts">Experiencia en LogicStudio &mdash; abierto a oportunidades</div>
         </div>
       </div>
-      <form class="fc rev" onsubmit="sendForm(event)">
+      <form class="fc rev" (submit)="sendForm($event)">
         <div><label class="fl">NOMBRE:</label><input class="fi" type="text" placeholder="TU NOMBRE..."></div>
         <div><label class="fl">EMAIL:</label><input class="fi" type="email" placeholder="TU@EMAIL.COM"></div>
         <div><label class="fl">MENSAJE:</label><textarea class="fa" placeholder="DESCRIBE TU MISION..."></textarea></div>

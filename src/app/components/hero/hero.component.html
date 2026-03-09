@@ -27,19 +27,19 @@
   </div>
   <!-- Platforms -->
   <div class="plat-row">
-    <span class="bk"></span><span class="bk"></span><span class="qb" onclick="hitQ(this,100)">?</span><span class="bk"></span>
+    <span class="bk"></span><span class="bk"></span><span class="qb" (click)="hitQ($event.target,100)">?</span><span class="bk"></span>
     <span style="display:inline-block;width:70px"></span>
-    <span class="qb" onclick="hitQ(this,200)" style="margin-bottom:44px">?</span><span class="qb" onclick="hitQ(this,200)" style="margin-bottom:44px">?</span>
+    <span class="qb" (click)="hitQ($event.target,200)" style="margin-bottom:44px">?</span><span class="qb" (click)="hitQ($event.target,200)" style="margin-bottom:44px">?</span>
     <span style="display:inline-block;width:110px"></span>
-    <span class="bk"></span><span class="bk"></span><span class="qb" onclick="hitQ(this,300)">?</span><span class="bk"></span><span class="bk"></span>
+    <span class="bk"></span><span class="bk"></span><span class="qb" (click)="hitQ($event.target,300)">?</span><span class="bk"></span><span class="bk"></span>
     <span style="display:inline-block;width:140px"></span>
-    <span class="qb" onclick="hitQ(this,500)" style="margin-bottom:76px">!</span>
+    <span class="qb" (click)="hitQ($event.target,500)" style="margin-bottom:76px">!</span>
     <span style="display:inline-block;width:90px"></span>
-    <span class="bk"></span><span class="bk"></span><span class="qb" onclick="hitQ(this,100)">?</span><span class="bk"></span>
+    <span class="bk"></span><span class="bk"></span><span class="qb" (click)="hitQ($event.target,100)">?</span><span class="bk"></span>
     <span style="display:inline-block;width:70px"></span>
-    <span class="qb" onclick="hitQ(this,200)" style="margin-bottom:44px">?</span><span class="qb" onclick="hitQ(this,200)" style="margin-bottom:44px">?</span>
+    <span class="qb" (click)="hitQ($event.target,200)" style="margin-bottom:44px">?</span><span class="qb" (click)="hitQ($event.target,200)" style="margin-bottom:44px">?</span>
     <span style="display:inline-block;width:110px"></span>
-    <span class="bk"></span><span class="bk"></span><span class="qb" onclick="hitQ(this,300)">?</span><span class="bk"></span><span class="bk"></span>
+    <span class="bk"></span><span class="bk"></span><span class="qb" (click)="hitQ($event.target,300)">?</span><span class="bk"></span><span class="bk"></span>
   </div>
   <!-- Pipes -->
   <div class="pd" style="left:8%"><div class="ph"></div><div class="pb-g" style="height:64px"></div></div>
@@ -75,9 +75,9 @@
     </h1>
     <p class="hsub">SAX &bull; GYM &bull; CODE &bull; CLICK PARA EXPLORAR</p>
     <div class="hqs">
-      <div class="hq" onclick="hitQ(this,100)">?</div>
-      <div class="hq" onclick="hitQ(this,200)">?</div>
-      <div class="hq" onclick="hitQ(this,500)">!</div>
+      <div class="hq" (click)="hitQ($event.target,100)">?</div>
+      <div class="hq" (click)="hitQ($event.target,200)">?</div>
+      <div class="hq" (click)="hitQ($event.target,500)">!</div>
     </div>
   </div>
 </div>

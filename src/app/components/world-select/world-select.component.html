@@ -1,14 +1,14 @@
 <div id="ws">
   <h2>SELECT WORLD</h2>
   <div class="wg">
-    <div class="wb" onclick="goSec('story');closeWS();"><span class="wb-i">&#128218;</span><div class="wb-n">WORLD 1</div><div class="wb-l">HISTORIA</div></div>
-    <div class="wb" onclick="goSec('about');closeWS();"><span class="wb-i">&#127968;</span><div class="wb-n">WORLD 2</div><div class="wb-l">SOBRE MI</div></div>
-    <div class="wb" onclick="goSec('cvsec');closeWS();"><span class="wb-i">&#128195;</span><div class="wb-n">WORLD 3</div><div class="wb-l">TRAYECTORIA</div></div>
-    <div class="wb" onclick="openInv();closeWS();"><span class="wb-i">&#127922;</span><div class="wb-n">WORLD 4</div><div class="wb-l">INVENTARIO</div></div>
-    <div class="wb" onclick="goSec('mapsec');closeWS();"><span class="wb-i">&#127981;</span><div class="wb-n">WORLD 5</div><div class="wb-l">PROYECTOS</div></div>
-    <div class="wb" onclick="goSec('ghsec');closeWS();"><span class="wb-i">&#128025;</span><div class="wb-n">WORLD 7</div><div class="wb-l">GITHUB</div></div>
-    <div class="wb" onclick="goSec('testsec');closeWS();"><span class="wb-i">&#128172;</span><div class="wb-n">WORLD 8</div><div class="wb-l">ALDEANOS</div></div>
-    <div class="wb" onclick="goSec('bosssec');closeWS();"><span class="wb-i">&#128293;</span><div class="wb-n">WORLD 6</div><div class="wb-l">BOSS FIGHT</div></div>
+    <div class="wb" (click)="goSec('story');closeWS();"><span class="wb-i">&#128218;</span><div class="wb-n">WORLD 1</div><div class="wb-l">HISTORIA</div></div>
+    <div class="wb" (click)="goSec('about');closeWS();"><span class="wb-i">&#127968;</span><div class="wb-n">WORLD 2</div><div class="wb-l">SOBRE MI</div></div>
+    <div class="wb" (click)="goSec('cvsec');closeWS();"><span class="wb-i">&#128195;</span><div class="wb-n">WORLD 3</div><div class="wb-l">TRAYECTORIA</div></div>
+    <div class="wb" (click)="openInv();closeWS();"><span class="wb-i">&#127922;</span><div class="wb-n">WORLD 4</div><div class="wb-l">INVENTARIO</div></div>
+    <div class="wb" (click)="goSec('mapsec');closeWS();"><span class="wb-i">&#127981;</span><div class="wb-n">WORLD 5</div><div class="wb-l">PROYECTOS</div></div>
+    <div class="wb" (click)="goSec('ghsec');closeWS();"><span class="wb-i">&#128025;</span><div class="wb-n">WORLD 7</div><div class="wb-l">GITHUB</div></div>
+    <div class="wb" (click)="goSec('testsec');closeWS();"><span class="wb-i">&#128172;</span><div class="wb-n">WORLD 8</div><div class="wb-l">ALDEANOS</div></div>
+    <div class="wb" (click)="goSec('bosssec');closeWS();"><span class="wb-i">&#128293;</span><div class="wb-n">WORLD 6</div><div class="wb-l">BOSS FIGHT</div></div>
   </div>
-  <button class="btn btn-red" onclick="closeWS()">ESC &mdash; CERRAR</button>
+  <button class="btn btn-red" (click)="closeWS()">ESC &mdash; CERRAR</button>
 </div>

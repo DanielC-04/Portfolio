@@ -78,7 +78,7 @@
     <!-- Add testimonial form -->
     <div class="ald-form-box rev" style="margin-top:28px">
       <div class="ald-form-title">DEJA TU TESTIMONIO</div>
-      <form onsubmit="submitAld(event)">
+      <form (submit)="submitAld($event)">
         <div class="ald-inputs">
           <div><label class="ald-lbl">NOMBRE:</label><input class="ald-inp" id="ald-name" placeholder="Tu nombre..." required></div>
           <div><label class="ald-lbl">ROL:</label><input class="ald-inp" id="ald-role" placeholder="Dev / Profe / Amigo..."></div>

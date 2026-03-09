@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { sendForm } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-contact',
@@ -6,4 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './contact.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactComponent {}
+export class ContactComponent {
+  sendForm(event: Event): void {
+    sendForm(event);
+  }
+}

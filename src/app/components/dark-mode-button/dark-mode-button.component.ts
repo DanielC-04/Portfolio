@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { toggleDM } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-dark-mode-button',
@@ -6,4 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './dark-mode-button.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DarkModeButtonComponent {}
+export class DarkModeButtonComponent {
+  toggleDM(): void {
+    toggleDM();
+  }
+}
