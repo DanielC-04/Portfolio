@@ -1,0 +1,22 @@
+.ald-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+.ald-card{background:var(--dark);border:4px solid var(--gold);padding:22px;box-shadow:6px 6px 0 var(--gdk);position:relative;transition:transform 0.2s;}
+.ald-card:hover{transform:translateY(-5px);}
+.ald-card::before{content:'';position:absolute;top:-3px;left:14px;width:20px;height:6px;background:var(--gold);}
+.ald-hdr{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.ald-ava{flex-shrink:0;}
+.ald-name{font-size:9px;color:var(--gold);margin-bottom:3px;}
+.ald-role{font-size:6px;color:var(--green);}
+.ald-rel{font-size:5px;color:#555;margin-top:2px;}
+.ald-quote{font-family:var(--fb);font-size:21px;color:#aaa;line-height:1.6;padding-left:12px;border-left:3px solid var(--gold);}
+.ald-stars{font-size:14px;margin-top:10px;}
+
+/* ADD ALDEANO FORM */
+.ald-form-box{background:var(--dark);border:4px dashed var(--gold);padding:24px;text-align:center;}
+.ald-form-title{font-size:9px;color:var(--gold);margin-bottom:14px;}
+.ald-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;text-align:left;}
+.ald-full{grid-column:1/-1;}
+.ald-lbl{font-size:6px;color:var(--gold);display:block;margin-bottom:3px;}
+.ald-inp,.ald-ta{width:100%;font-family:var(--fn);font-size:6px;padding:8px;background:#050515;border:3px solid #1a1a50;color:#fff;outline:none;}
+.ald-inp:focus,.ald-ta:focus{border-color:var(--gold);}
+.ald-ta{height:80px;resize:none;}
+#ald-msg{font-family:var(--fb);font-size:18px;color:var(--green);min-height:22px;margin-top:8px;}

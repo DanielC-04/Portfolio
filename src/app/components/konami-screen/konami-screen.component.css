@@ -1,0 +1,9 @@
+#konami-screen{
+  display:none;position:fixed;inset:0;background:#000;z-index:99990;
+  align-items:center;justify-content:center;flex-direction:column;gap:24px;
+}
+#konami-screen.show{display:flex;}
+.konami-title{font-size:clamp(14px,3vw,28px);color:var(--gold);text-shadow:4px 4px 0 var(--red);animation:glow 0.5s ease-in-out infinite alternate;text-align:center;}
+.konami-sub{font-family:var(--fb);font-size:22px;color:#888;text-align:center;}
+.konami-stars{font-size:36px;animation:ks 1s linear infinite;}
+@keyframes ks{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}

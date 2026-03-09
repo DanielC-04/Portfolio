@@ -1,0 +1,6 @@
+.gh-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.gh-card{background:var(--dark);border:4px solid #1a1a50;padding:18px;text-align:center;transition:border-color 0.2s;}
+.gh-card:hover{border-color:var(--gold);}
+.gh-card img{width:100%;height:auto;border:2px solid #1a1a50;display:block;}
+.gh-lbl{font-size:6px;color:var(--gold);margin-bottom:8px;}
+.gh-loading{font-family:var(--fb);font-size:18px;color:#555;animation:blink 1s step-end infinite;}

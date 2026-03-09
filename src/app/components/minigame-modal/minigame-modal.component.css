@@ -1,0 +1,7 @@
+#mg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9500;align-items:center;justify-content:center;}
+#mg.open{display:flex;}
+#mg-box{background:var(--dark);border:4px solid var(--gold);padding:18px;max-width:650px;width:95%;box-shadow:8px 8px 0 var(--gdk);}
+#mg-title{font-size:10px;color:var(--gold);text-align:center;margin-bottom:6px;}
+#mg-hud{font-size:6px;color:var(--white);text-align:center;margin-bottom:8px;}
+#gc{display:block;margin:0 auto;border:3px solid var(--gold);image-rendering:pixelated;}
+#mg-hint{font-size:5px;color:#555;text-align:center;margin-top:6px;}

@@ -1,0 +1,94 @@
+<section id="testsec" class="sw" style="background:#080820">
+  <div class="si">
+    <div class="shead"><div class="shb">&#128172;</div><h2 class="sht" style="color:#fff">ALDEANOS &mdash; WORLD 7</h2></div>
+    <p style="font-family:var(--fb);font-size:20px;color:#555;margin-bottom:28px">Lo que dicen los aldeanos del reino...</p>
+    <div class="ald-grid" id="ald-grid">
+      <!-- Aldeano 1: Profesor/Mentor UTP -->
+      <div class="ald-card rev">
+        <div class="ald-hdr">
+          <div class="ald-ava">
+            <svg width="52" height="52" viewBox="0 0 20 20" style="image-rendering:pixelated">
+              <rect x="5" y="0" width="10" height="2" fill="#f8b800"/>
+              <rect x="4" y="2" width="12" height="2" fill="#f8b800"/>
+              <rect x="3" y="4" width="14" height="8" fill="#ffe0b0"/>
+              <rect x="5" y="6" width="2" height="2" fill="#222"/>
+              <rect x="13" y="6" width="2" height="2" fill="#222"/>
+              <rect x="7" y="10" width="6" height="1" fill="#c06040"/>
+              <rect x="3" y="12" width="14" height="5" fill="#1a1a90"/>
+              <rect x="5" y="10" width="10" height="2" fill="#f8b800"/>
+            </svg>
+          </div>
+          <div class="ald-info">
+            <div class="ald-name">PROF. UNIVERSIDAD</div>
+            <div class="ald-role">DOCENTE &mdash; UTP COCLE</div>
+            <div class="ald-rel">ACADEMIA</div>
+          </div>
+        </div>
+        <div class="ald-quote">Daniel siempre fue un estudiante comprometido. Su capacidad para aprender nuevas tecnologias y aplicarlas de forma practica lo distingue de sus companeros.</div>
+        <div class="ald-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      </div>
+      <!-- Aldeano 2: Compañero LogicStudio -->
+      <div class="ald-card rev">
+        <div class="ald-hdr">
+          <div class="ald-ava">
+            <svg width="52" height="52" viewBox="0 0 20 20" style="image-rendering:pixelated">
+              <rect x="6" y="0" width="8" height="2" fill="#512BD4"/>
+              <rect x="4" y="2" width="12" height="2" fill="#512BD4"/>
+              <rect x="3" y="4" width="14" height="8" fill="#ffe0b0"/>
+              <rect x="5" y="6" width="2" height="2" fill="#222"/>
+              <rect x="13" y="6" width="2" height="2" fill="#222"/>
+              <rect x="7" y="10" width="6" height="1" fill="#c06040"/>
+              <rect x="3" y="12" width="14" height="6" fill="#3382F6"/>
+              <rect x="8" y="13" width="4" height="4" fill="#512BD4"/>
+            </svg>
+          </div>
+          <div class="ald-info">
+            <div class="ald-name">COMPAÑERO DEV</div>
+            <div class="ald-role">DEVELOPER &mdash; LOGICSTUDIO</div>
+            <div class="ald-rel">TRABAJO</div>
+          </div>
+        </div>
+        <div class="ald-quote">Trabajar con Daniel fue genial. Aprende rapido, pregunta inteligente y su codigo es limpio. Tiene mucho potencial para cualquier equipo que lo incorpore.</div>
+        <div class="ald-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      </div>
+      <!-- Aldeano 3: Compañero UTP -->
+      <div class="ald-card rev">
+        <div class="ald-hdr">
+          <div class="ald-ava">
+            <svg width="52" height="52" viewBox="0 0 20 20" style="image-rendering:pixelated">
+              <rect x="5" y="0" width="10" height="3" fill="#00b300"/>
+              <rect x="4" y="3" width="12" height="2" fill="#00b300"/>
+              <rect x="3" y="5" width="14" height="7" fill="#ffe0b0"/>
+              <rect x="5" y="7" width="2" height="2" fill="#222"/>
+              <rect x="13" y="7" width="2" height="2" fill="#222"/>
+              <rect x="7" y="10" width="6" height="1" fill="#c06040"/>
+              <rect x="3" y="12" width="14" height="6" fill="#00b300"/>
+            </svg>
+          </div>
+          <div class="ald-info">
+            <div class="ald-name">COMPAÑERO UTP</div>
+            <div class="ald-role">ESTUDIANTE &mdash; ING. SISTEMAS</div>
+            <div class="ald-rel">UNIVERSIDAD</div>
+          </div>
+        </div>
+        <div class="ald-quote">Daniel es de los que se queda hasta tarde resolviendo problemas. Siempre dispuesto a ayudar y explicar. Un verdadero compañero de codigo.</div>
+        <div class="ald-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      </div>
+    </div>
+    <!-- Add testimonial form -->
+    <div class="ald-form-box rev" style="margin-top:28px">
+      <div class="ald-form-title">DEJA TU TESTIMONIO</div>
+      <form onsubmit="submitAld(event)">
+        <div class="ald-inputs">
+          <div><label class="ald-lbl">NOMBRE:</label><input class="ald-inp" id="ald-name" placeholder="Tu nombre..." required></div>
+          <div><label class="ald-lbl">ROL:</label><input class="ald-inp" id="ald-role" placeholder="Dev / Profe / Amigo..."></div>
+          <div class="ald-full"><label class="ald-lbl">MENSAJE:</label><textarea class="ald-ta" id="ald-msg-inp" placeholder="Tu mensaje para Daniel..." required></textarea></div>
+        </div>
+        <button type="submit" class="btn btn-gold" style="padding:10px 20px;font-size:8px">ENVIAR TESTIMONIO</button>
+      </form>
+      <div id="ald-msg"></div>
+    </div>
+  </div>
+</section>
+
+<div class="ssep"></div>
