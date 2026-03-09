@@ -12,7 +12,7 @@ type Skill = {
   ico: string;
   r: 'legendary' | 'epic' | 'rare' | 'common';
   pct: number;
-  lvl: string;
+  ctx: 'PASANTIA' | 'APRENDIENDO' | 'DIARIO' | 'UNIVERSIDAD' | 'PERSONAL' | 'LIFE';
 };
 
 type Achievement = {
@@ -88,22 +88,26 @@ const PROJECTS: Project[] = [
 ];
 
 const SKILLS: Skill[] = [
-  { n: 'C#', ico: '&#128311;', r: 'legendary', pct: 85, lvl: 'LVL 8' },
-  { n: '.NET 8', ico: '&#128640;', r: 'legendary', pct: 82, lvl: 'LVL 8' },
-  { n: 'Angular 21', ico: '&#128308;', r: 'epic', pct: 78, lvl: 'LVL 7' },
-  { n: 'TypeScript', ico: '&#128255;', r: 'epic', pct: 75, lvl: 'LVL 7' },
-  { n: 'SQL Server', ico: '&#128451;', r: 'rare', pct: 72, lvl: 'LVL 6' },
-  { n: 'Entity Framework', ico: '&#128209;', r: 'rare', pct: 70, lvl: 'LVL 6' },
-  { n: 'Azure', ico: '&#9729;&#65039;', r: 'rare', pct: 55, lvl: 'LVL 4' },
-  { n: 'Docker', ico: '&#128051;', r: 'common', pct: 50, lvl: 'LVL 4' },
-  { n: 'Kotlin', ico: '&#128241;', r: 'rare', pct: 65, lvl: 'LVL 5' },
-  { n: 'Python', ico: '&#128013;', r: 'common', pct: 55, lvl: 'LVL 4' },
-  { n: 'Clean Arch', ico: '&#127963;', r: 'epic', pct: 74, lvl: 'LVL 7' },
-  { n: 'JWT / Auth', ico: '&#128274;', r: 'rare', pct: 68, lvl: 'LVL 5' },
-  { n: 'Git', ico: '&#127760;', r: 'epic', pct: 80, lvl: 'LVL 7' },
-  { n: 'AI Agents', ico: '&#129302;', r: 'rare', pct: 45, lvl: 'LVL 3' },
-  { n: 'Node.js', ico: '&#128312;', r: 'common', pct: 48, lvl: 'LVL 3' },
-  { n: 'Saxofon', ico: '&#127927;', r: 'legendary', pct: 90, lvl: 'LVL MAX' }
+  { n: 'C#', ico: '<i class="devicon-csharp-plain colored"></i>', r: 'legendary', pct: 90, ctx: 'PASANTIA' },
+  { n: '.NET 8', ico: '<i class="devicon-dotnetcore-plain colored"></i>', r: 'legendary', pct: 88, ctx: 'PASANTIA' },
+  { n: 'Saxofon', ico: '🎷', r: 'legendary', pct: 92, ctx: 'LIFE' },
+  { n: 'Angular 21', ico: '<i class="devicon-angularjs-plain colored"></i>', r: 'epic', pct: 84, ctx: 'PASANTIA' },
+  { n: 'TypeScript', ico: '<i class="devicon-typescript-plain colored"></i>', r: 'epic', pct: 82, ctx: 'PASANTIA' },
+  { n: 'Git', ico: '<i class="devicon-git-plain colored"></i>', r: 'epic', pct: 78, ctx: 'DIARIO' },
+  { n: 'Clean Architecture', ico: '🏛️', r: 'epic', pct: 76, ctx: 'PASANTIA' },
+  { n: 'SQL Server', ico: '<i class="devicon-microsoftsqlserver-plain colored"></i>', r: 'rare', pct: 80, ctx: 'PASANTIA' },
+  { n: 'EF Core', ico: '<i class="devicon-dotnetcore-plain colored"></i>', r: 'rare', pct: 74, ctx: 'PASANTIA' },
+  { n: 'Azure', ico: '<i class="devicon-azure-plain colored"></i>', r: 'rare', pct: 60, ctx: 'APRENDIENDO' },
+  { n: 'Kotlin', ico: '<i class="devicon-kotlin-plain colored"></i>', r: 'rare', pct: 72, ctx: 'UNIVERSIDAD' },
+  { n: 'JWT', ico: '🔐', r: 'rare', pct: 73, ctx: 'PASANTIA' },
+  { n: 'AI Agents', ico: '🤖', r: 'rare', pct: 58, ctx: 'APRENDIENDO' },
+  { n: 'Android', ico: '<i class="devicon-android-plain colored"></i>', r: 'rare', pct: 70, ctx: 'UNIVERSIDAD' },
+  { n: 'Java', ico: '<i class="devicon-java-plain colored"></i>', r: 'rare', pct: 71, ctx: 'UNIVERSIDAD' },
+  { n: 'Docker', ico: '<i class="devicon-docker-plain colored"></i>', r: 'common', pct: 64, ctx: 'PERSONAL' },
+  { n: 'Python', ico: '<i class="devicon-python-plain colored"></i>', r: 'common', pct: 68, ctx: 'PERSONAL' },
+  { n: 'Node.js', ico: '<i class="devicon-nodejs-plain colored"></i>', r: 'common', pct: 67, ctx: 'PERSONAL' },
+  { n: 'Postman', ico: '<i class="devicon-postman-plain colored"></i>', r: 'common', pct: 69, ctx: 'DIARIO' },
+  { n: 'VS Code', ico: '<i class="devicon-vscode-plain colored"></i>', r: 'common', pct: 77, ctx: 'DIARIO' }
 ];
 
 const ACHIEVEMENTS: Achievement[] = [
@@ -365,28 +369,21 @@ function buildInv(): void {
   SKILLS.forEach((s) => {
     const d = document.createElement('div');
     d.className = `itm ${s.r}`;
-    d.setAttribute('draggable', 'true');
-    d.innerHTML = `<div class="rb ${s.r}">${s.r.toUpperCase()}</div><span class="itm-ico">${s.ico}</span><div class="itm-n">${s.n}</div><div class="itm-bar"><div class="itm-fill" style="width:${s.pct}%"></div></div><div class="itm-lvl">${s.lvl}</div>`;
-    d.addEventListener('dragstart', (e: DragEvent) => {
-      if (e.dataTransfer) e.dataTransfer.setData('text', s.n);
-      playSound('sel');
-    });
+    d.innerHTML = `<div class="rb ${s.r}">${s.r.toUpperCase()}</div><span class="itm-ico">${s.ico}</span><div class="itm-n">${s.n.toUpperCase()}</div><div class="itm-bar"><div class="itm-fill" style="width:${s.pct}%"></div></div><div class="itm-ctx">${s.ctx}</div>`;
     g.appendChild(d);
   });
 }
 
 export function openInv(): void {
-  const inv = byId<HTMLDivElement>('inv');
-  if (!inv) return;
-  inv.classList.add('open');
+  const sec = byId<HTMLElement>('skillsec');
+  if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
   playSound('lvlup');
   unlockAch('inv');
 }
 
 export function closeInv(): void {
-  const inv = byId<HTMLDivElement>('inv');
-  if (!inv) return;
-  inv.classList.remove('open');
+  const sec = byId<HTMLElement>('skillsec');
+  if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /* ===================== PROJECT MAP ===================== */

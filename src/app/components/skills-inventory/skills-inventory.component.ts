@@ -1,14 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { openInv } from '../../legacy/legacy';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-skills-inventory',
   templateUrl: './skills-inventory.component.html',
   styleUrl: './skills-inventory.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class SkillsInventoryComponent {
-  openInv(): void {
-    openInv();
-  }
 }
