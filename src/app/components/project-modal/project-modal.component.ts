@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { closePm } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-project-modal',
@@ -7,4 +8,8 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ProjectModalComponent {}
+export class ProjectModalComponent {
+  closePm(): void {
+    closePm();
+  }
+}

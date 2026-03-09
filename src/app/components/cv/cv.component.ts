@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { downloadCV } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-cv',
@@ -6,4 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './cv.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CvComponent {}
+export class CvComponent {
+  downloadCV(): void {
+    downloadCV();
+  }
+}

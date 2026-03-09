@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { closeInv } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-inventory-modal',
@@ -7,4 +8,8 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class InventoryModalComponent {}
+export class InventoryModalComponent {
+  closeInv(): void {
+    closeInv();
+  }
+}

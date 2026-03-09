@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { closeKonami } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-konami-screen',
@@ -6,4 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './konami-screen.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class KonamiScreenComponent {}
+export class KonamiScreenComponent {
+  closeKonami(): void {
+    closeKonami();
+  }
+}
