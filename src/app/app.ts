@@ -12,7 +12,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { GithubStatsComponent } from './components/github-stats/github-stats.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { InsertCoinComponent } from './shared/insert-coin/insert-coin.component';
-import { InventoryModalComponent } from './components/inventory-modal/inventory-modal.component';
 import { KonamiScreenComponent } from './components/konami-screen/konami-screen.component';
 import { LevelTransitionComponent } from './components/level-transition/level-transition.component';
 import { MinigameModalComponent } from './shared/minigame/minigame-modal.component';
@@ -41,7 +40,6 @@ import { WorldSelectComponent } from './components/world-select/world-select.com
     GithubStatsComponent,
     HeroComponent,
     InsertCoinComponent,
-    InventoryModalComponent,
     KonamiScreenComponent,
     LevelTransitionComponent,
     MinigameModalComponent,
@@ -56,7 +54,6 @@ import { WorldSelectComponent } from './components/world-select/world-select.com
     WorldSelectComponent
   ],
   templateUrl: './app.html',
-  styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class App implements AfterViewInit {

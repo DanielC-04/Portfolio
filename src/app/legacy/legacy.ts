@@ -12,7 +12,7 @@ type Skill = {
   ico: string;
   r: 'legendary' | 'epic' | 'rare' | 'common';
   pct: number;
-  ctx: 'PASANTIA' | 'APRENDIENDO' | 'DIARIO' | 'UNIVERSIDAD' | 'PERSONAL' | 'LIFE';
+  typ: 'Aprendiendo' | 'Intermedio' | 'Avanzado';
 };
 
 type Achievement = {
@@ -43,7 +43,6 @@ let bgmOn = false;
 let bgmTmr: ReturnType<typeof setTimeout> | null = null;
 let vizTmr: ReturnType<typeof setTimeout> | null = null;
 let tmr = 300;
-let tmrInt: ReturnType<typeof setInterval> | null = null;
 let comboCount = 0;
 let comboTmr: ReturnType<typeof setTimeout> | null = null;
 let comboMult = 1;
@@ -88,26 +87,27 @@ const PROJECTS: Project[] = [
 ];
 
 const SKILLS: Skill[] = [
-  { n: 'C#', ico: '<i class="devicon-csharp-plain colored"></i>', r: 'legendary', pct: 90, ctx: 'PASANTIA' },
-  { n: '.NET 8', ico: '<i class="devicon-dotnetcore-plain colored"></i>', r: 'legendary', pct: 88, ctx: 'PASANTIA' },
-  { n: 'Saxofon', ico: '🎷', r: 'legendary', pct: 92, ctx: 'LIFE' },
-  { n: 'Angular 21', ico: '<i class="devicon-angularjs-plain colored"></i>', r: 'epic', pct: 84, ctx: 'PASANTIA' },
-  { n: 'TypeScript', ico: '<i class="devicon-typescript-plain colored"></i>', r: 'epic', pct: 82, ctx: 'PASANTIA' },
-  { n: 'Git', ico: '<i class="devicon-git-plain colored"></i>', r: 'epic', pct: 78, ctx: 'DIARIO' },
-  { n: 'Clean Architecture', ico: '🏛️', r: 'epic', pct: 76, ctx: 'PASANTIA' },
-  { n: 'SQL Server', ico: '<i class="devicon-microsoftsqlserver-plain colored"></i>', r: 'rare', pct: 80, ctx: 'PASANTIA' },
-  { n: 'EF Core', ico: '<i class="devicon-dotnetcore-plain colored"></i>', r: 'rare', pct: 74, ctx: 'PASANTIA' },
-  { n: 'Azure', ico: '<i class="devicon-azure-plain colored"></i>', r: 'rare', pct: 60, ctx: 'APRENDIENDO' },
-  { n: 'Kotlin', ico: '<i class="devicon-kotlin-plain colored"></i>', r: 'rare', pct: 72, ctx: 'UNIVERSIDAD' },
-  { n: 'JWT', ico: '🔐', r: 'rare', pct: 73, ctx: 'PASANTIA' },
-  { n: 'AI Agents', ico: '🤖', r: 'rare', pct: 58, ctx: 'APRENDIENDO' },
-  { n: 'Android', ico: '<i class="devicon-android-plain colored"></i>', r: 'rare', pct: 70, ctx: 'UNIVERSIDAD' },
-  { n: 'Java', ico: '<i class="devicon-java-plain colored"></i>', r: 'rare', pct: 71, ctx: 'UNIVERSIDAD' },
-  { n: 'Docker', ico: '<i class="devicon-docker-plain colored"></i>', r: 'common', pct: 64, ctx: 'PERSONAL' },
-  { n: 'Python', ico: '<i class="devicon-python-plain colored"></i>', r: 'common', pct: 68, ctx: 'PERSONAL' },
-  { n: 'Node.js', ico: '<i class="devicon-nodejs-plain colored"></i>', r: 'common', pct: 67, ctx: 'PERSONAL' },
-  { n: 'Postman', ico: '<i class="devicon-postman-plain colored"></i>', r: 'common', pct: 69, ctx: 'DIARIO' },
-  { n: 'VS Code', ico: '<i class="devicon-vscode-plain colored"></i>', r: 'common', pct: 77, ctx: 'DIARIO' }
+  { n: 'C#', ico: '<i class="devicon-csharp-plain colored"></i>', r: 'legendary', pct: 90, typ: 'Avanzado' },
+  { n: '.NET 8', ico: '<i class="devicon-dotnetcore-plain colored"></i>', r: 'legendary', pct: 88, typ: 'Avanzado' },
+  { n: 'Angular 21', ico: '<i class="devicon-angularjs-plain colored"></i>', r: 'epic', pct: 84, typ: 'Avanzado' },
+  { n: 'TypeScript', ico: '<i class="devicon-typescript-plain colored"></i>', r: 'epic', pct: 82, typ: 'Avanzado' },
+  { n: 'SQL Server', ico: '<i class="devicon-microsoftsqlserver-plain colored"></i>', r: 'rare', pct: 80, typ: 'Avanzado' },
+  { n: 'Entity Framework', ico: '<i class="devicon-dotnetcore-plain colored"></i>', r: 'rare', pct: 56, typ: 'Aprendiendo' },
+  { n: 'Azure', ico: '<i class="devicon-azure-plain colored"></i>', r: 'rare', pct: 52, typ: 'Aprendiendo' },
+  { n: 'Docker', ico: '<i class="devicon-docker-plain colored"></i>', r: 'common', pct: 50, typ: 'Aprendiendo' },
+  { n: 'Kotlin', ico: '<i class="devicon-kotlin-plain colored"></i>', r: 'rare', pct: 72, typ: 'Intermedio' },
+  { n: 'Python', ico: '<i class="devicon-python-plain colored"></i>', r: 'common', pct: 70, typ: 'Intermedio' },
+  { n: 'Git', ico: '<i class="devicon-git-plain colored"></i>', r: 'epic', pct: 76, typ: 'Intermedio' },
+  { n: 'Node.js', ico: '<i class="devicon-nodejs-plain colored"></i>', r: 'common', pct: 68, typ: 'Intermedio' },
+  { n: 'PHP', ico: '<i class="devicon-php-plain colored"></i>', r: 'common', pct: 65, typ: 'Intermedio' },
+  { n: 'Java', ico: '<i class="devicon-java-plain colored"></i>', r: 'rare', pct: 71, typ: 'Intermedio' },
+  { n: 'Android', ico: '<i class="devicon-android-plain colored"></i>', r: 'rare', pct: 70, typ: 'Intermedio' },
+  { n: 'GitHub', ico: '<i class="devicon-github-original colored"></i>', r: 'common', pct: 67, typ: 'Intermedio' },
+  { n: 'VS Code', ico: '<i class="devicon-vscode-plain colored"></i>', r: 'common', pct: 69, typ: 'Intermedio' },
+  { n: 'Postman', ico: '<i class="devicon-postman-plain colored"></i>', r: 'common', pct: 64, typ: 'Intermedio' },
+  { n: 'Bootstrap', ico: '<i class="devicon-bootstrap-plain colored"></i>', r: 'common', pct: 68, typ: 'Intermedio' },
+  { n: 'MySQL', ico: '<i class="devicon-mysql-plain colored"></i>', r: 'rare', pct: 66, typ: 'Intermedio' },
+  { n: 'MongoDB', ico: '<i class="devicon-mongodb-plain colored"></i>', r: 'common', pct: 53, typ: 'Aprendiendo' }
 ];
 
 const ACHIEVEMENTS: Achievement[] = [
@@ -131,7 +131,6 @@ const BOSS_QS: BossQuestion[] = [
   { q: 'En que universidad estudia Daniel?', opts: ['USMA', 'UP', 'UTP Sede Cocle', 'OTEIMA'], a: 2 }
 ];
 let bossHp = 5;
-let bossAnswered = 0;
 
 /* ===================== CURSOR ===================== */
 let cur: HTMLElement | null = null;
@@ -153,7 +152,7 @@ window.addEventListener('scroll', () => {
 
 /* ===================== TIMER ===================== */
 function startTimer(): void {
-  tmrInt = setInterval(() => {
+  setInterval(() => {
     if (tmr > 0) {
       tmr--;
       const ti = byId<HTMLSpanElement>('ti');
@@ -369,7 +368,7 @@ function buildInv(): void {
   SKILLS.forEach((s) => {
     const d = document.createElement('div');
     d.className = `itm ${s.r}`;
-    d.innerHTML = `<div class="rb ${s.r}">${s.r.toUpperCase()}</div><span class="itm-ico">${s.ico}</span><div class="itm-n">${s.n.toUpperCase()}</div><div class="itm-bar"><div class="itm-fill" style="width:${s.pct}%"></div></div><div class="itm-ctx">${s.ctx}</div>`;
+    d.innerHTML = `<div class="rb ${s.r}">${s.r.toUpperCase()}</div><span class="itm-ico">${s.ico}</span><div class="itm-n">${s.n.toUpperCase()}</div><div class="itm-bar"><div class="itm-fill" style="width:${s.pct}%"></div></div><div class="itm-typ">${s.typ}</div>`;
     g.appendChild(d);
   });
 }
@@ -379,11 +378,6 @@ export function openInv(): void {
   if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
   playSound('lvlup');
   unlockAch('inv');
-}
-
-export function closeInv(): void {
-  const sec = byId<HTMLElement>('skillsec');
-  if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /* ===================== PROJECT MAP ===================== */
@@ -431,14 +425,14 @@ function buildBoss(): void {
     div.className = 'bq';
     let opts = '';
     q.opts.forEach((o, oi) => {
-      opts += `<button class="bopt" onclick="answerBoss(${qi},${oi},${q.a},this)">${String.fromCharCode(65 + oi)}) ${o}</button>`;
+      opts += `<button class="bopt" onclick="answerBoss(${oi},${q.a},this)">${String.fromCharCode(65 + oi)}) ${o}</button>`;
     });
     div.innerHTML = `<div class="bq-t">${q.q}</div><div class="bopts">${opts}</div>`;
     container.appendChild(div);
   });
 }
 
-export function answerBoss(qi: number, picked: number, correct: number, btn: HTMLButtonElement): void {
+export function answerBoss(picked: number, correct: number, btn: HTMLButtonElement): void {
   const bq = btn.closest('.bq');
   if (!bq) return;
   bq.querySelectorAll<HTMLButtonElement>('.bopt').forEach((b) => { b.style.pointerEvents = 'none'; });
@@ -456,7 +450,6 @@ export function answerBoss(qi: number, picked: number, correct: number, btn: HTM
     msg.style.color = 'var(--green)';
     addScore(500);
     playSound('coin');
-    bossAnswered++;
     if (bossHp <= 0) {
       setTimeout(() => {
         const bres = byId<HTMLDivElement>('bres');
@@ -637,11 +630,9 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
   }
   if (e.code === 'Escape') {
     const mg = byId<HTMLDivElement>('mg');
-    const inv = byId<HTMLDivElement>('inv');
     const pm = byId<HTMLDivElement>('pm');
     const ws = byId<HTMLDivElement>('ws');
     if (mg && mg.classList.contains('open')) closeMg();
-    if (inv && inv.classList.contains('open')) closeInv();
     if (pm && pm.classList.contains('open')) closePm();
     if (ws && ws.classList.contains('open')) closeWS();
   }

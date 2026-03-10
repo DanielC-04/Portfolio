@@ -21,7 +21,7 @@
 .itm-n{font-size:8px;color:var(--white);margin-bottom:6px;min-height:24px;display:flex;align-items:center;justify-content:center;}
 .itm-bar{height:7px;background:#222;border:1px solid #444;margin-bottom:6px;}
 .itm-fill{height:100%;background:linear-gradient(90deg,var(--gdk),var(--gold));}
-.itm-ctx{font-size:7px;color:var(--gold);margin-top:auto;}
+.itm-typ{font-size:7px;color:var(--gold);margin-top:auto;}
 
 @media (max-width: 680px){
   .inv-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
