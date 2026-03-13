@@ -1,56 +1,51 @@
 <div id="hero">
   <div class="sky-l"></div>
-  <!-- Clouds -->
   <div class="cloud-row">
-    <div class="cl" style="width:88px;height:32px;top:90px;left:6%;"></div>
-    <div class="cl" style="width:56px;height:24px;top:82px;left:5%;"></div>
-    <div class="cl" style="width:68px;height:28px;top:130px;left:26%;"></div>
-    <div class="cl" style="width:80px;height:30px;top:100px;left:55%;"></div>
-    <div class="cl" style="width:56px;height:22px;top:95px;left:54%;"></div>
-    <div class="cl" style="width:72px;height:28px;top:140px;left:78%;"></div>
-    <div class="cl" style="width:88px;height:32px;top:90px;left:106%;"></div>
-    <div class="cl" style="width:68px;height:28px;top:130px;left:126%;"></div>
-    <div class="cl" style="width:80px;height:30px;top:100px;left:155%;"></div>
-    <div class="cl" style="width:72px;height:28px;top:140px;left:178%;"></div>
+    <div class="cl cl1"></div>
+    <div class="cl cl2"></div>
+    <div class="cl cl3"></div>
+    <div class="cl cl4"></div>
+    <div class="cl cl5"></div>
+    <div class="cl cl6"></div>
+    <div class="cl cl7"></div>
+    <div class="cl cl8"></div>
+    <div class="cl cl9"></div>
+    <div class="cl cl10"></div>
   </div>
-  <!-- Hills -->
   <div class="hill-row">
-    <div class="hl" style="width:200px;height:90px;background:#3a7820;left:4%;"></div>
-    <div class="hl" style="width:160px;height:70px;background:#4a8c2a;left:24%;"></div>
-    <div class="hl" style="width:220px;height:100px;background:#3a7820;left:46%;"></div>
-    <div class="hl" style="width:170px;height:75px;background:#4a8c2a;left:70%;"></div>
-    <div class="hl" style="width:200px;height:90px;background:#3a7820;left:90%;"></div>
-    <div class="hl" style="width:200px;height:90px;background:#3a7820;left:104%;"></div>
-    <div class="hl" style="width:160px;height:70px;background:#4a8c2a;left:124%;"></div>
-    <div class="hl" style="width:220px;height:100px;background:#3a7820;left:146%;"></div>
-    <div class="hl" style="width:170px;height:75px;background:#4a8c2a;left:170%;"></div>
+    <div class="hl hl1"></div>
+    <div class="hl hl2"></div>
+    <div class="hl hl3"></div>
+    <div class="hl hl4"></div>
+    <div class="hl hl5"></div>
+    <div class="hl hl6"></div>
+    <div class="hl hl7"></div>
+    <div class="hl hl8"></div>
+    <div class="hl hl9"></div>
   </div>
-  <!-- Platforms -->
   <div class="plat-row">
     <span class="bk"></span><span class="bk"></span><span class="qb" (click)="hitQ($event.target,100)">?</span><span class="bk"></span>
-    <span style="display:inline-block;width:70px"></span>
-    <span class="qb" (click)="hitQ($event.target,200)" style="margin-bottom:44px">?</span><span class="qb" (click)="hitQ($event.target,200)" style="margin-bottom:44px">?</span>
-    <span style="display:inline-block;width:110px"></span>
+    <span class="gap gap-70"></span>
+    <span class="qb qb-up-44" (click)="hitQ($event.target,200)">?</span><span class="qb qb-up-44" (click)="hitQ($event.target,200)">?</span>
+    <span class="gap gap-110"></span>
     <span class="bk"></span><span class="bk"></span><span class="qb" (click)="hitQ($event.target,300)">?</span><span class="bk"></span><span class="bk"></span>
-    <span style="display:inline-block;width:140px"></span>
-    <span class="qb" (click)="hitQ($event.target,500)" style="margin-bottom:76px">!</span>
-    <span style="display:inline-block;width:90px"></span>
+    <span class="gap gap-140"></span>
+    <span class="qb qb-up-76" (click)="hitQ($event.target,500)">!</span>
+    <span class="gap gap-90"></span>
     <span class="bk"></span><span class="bk"></span><span class="qb" (click)="hitQ($event.target,100)">?</span><span class="bk"></span>
-    <span style="display:inline-block;width:70px"></span>
-    <span class="qb" (click)="hitQ($event.target,200)" style="margin-bottom:44px">?</span><span class="qb" (click)="hitQ($event.target,200)" style="margin-bottom:44px">?</span>
-    <span style="display:inline-block;width:110px"></span>
+    <span class="gap gap-70"></span>
+    <span class="qb qb-up-44" (click)="hitQ($event.target,200)">?</span><span class="qb qb-up-44" (click)="hitQ($event.target,200)">?</span>
+    <span class="gap gap-110"></span>
     <span class="bk"></span><span class="bk"></span><span class="qb" (click)="hitQ($event.target,300)">?</span><span class="bk"></span><span class="bk"></span>
   </div>
-  <!-- Pipes -->
-  <div class="pd" style="left:8%"><div class="ph"></div><div class="pb-g" style="height:64px"></div></div>
-  <div class="pd" style="left:27%"><div class="ph"></div><div class="pb-g" style="height:88px"></div></div>
-  <div class="pd" style="right:9%"><div class="ph"></div><div class="pb-g" style="height:56px"></div></div>
-  <div class="pd" style="right:29%"><div class="ph"></div><div class="pb-g" style="height:76px"></div></div>
+  <div class="pd pd-left-8"><div class="ph"></div><div class="pb-g pb-h-64"></div></div>
+  <div class="pd pd-left-27"><div class="ph"></div><div class="pb-g pb-h-88"></div></div>
+  <div class="pd pd-right-9"><div class="ph"></div><div class="pb-g pb-h-56"></div></div>
+  <div class="pd pd-right-29"><div class="ph"></div><div class="pb-g pb-h-76"></div></div>
   <div class="gnd"></div>
-  <!-- Content -->
   <div class="hcont">
     <div class="av">
-      <svg width="88" height="88" viewBox="0 0 20 20" style="image-rendering:pixelated">
+      <svg width="88" height="88" viewBox="0 0 20 20" class="av-svg">
         <rect x="6" y="1" width="8" height="2" fill="#3382F6"/><rect x="5" y="3" width="10" height="2" fill="#3382F6"/>
         <rect x="4" y="2" width="2" height="3" fill="#3382F6"/><rect x="14" y="2" width="2" height="3" fill="#3382F6"/>
         <rect x="8" y="2" width="3" height="1" fill="#88bbff"/>
@@ -66,7 +61,7 @@
         <rect x="4" y="16" width="5" height="2" fill="#512BD4"/><rect x="11" y="16" width="5" height="2" fill="#512BD4"/>
         <rect x="3" y="18" width="5" height="2" fill="#222"/><rect x="12" y="18" width="5" height="2" fill="#222"/>
       </svg>
-      <div style="font-size:4px;color:#88bbff;text-align:center;margin-top:3px;letter-spacing:1px">P1 &mdash; DANIEL</div>
+      <div class="p1-label">P1 &mdash; DANIEL</div>
     </div>
     <h1 class="ht">
       BIENVENIDO AL REINO DE

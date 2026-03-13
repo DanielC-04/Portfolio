@@ -1,7 +1,7 @@
-<section id="mapsec" class="sw map-wide" style="background:#0a1830">
+<section id="mapsec" class="sw map-wide map-section">
   <div class="si">
-    <div class="shead"><div class="shb">&#127981;</div><h2 class="sht" style="color:#fff">PROYECTOS &mdash; WORLD 5</h2></div>
-    <p style="font-family:var(--fb);font-size:19px;color:#666;margin-bottom:24px" class="rev">Haz clic en cada nodo del mapa para ver el proyecto</p>
+    <div class="shead"><div class="shb">&#127981;</div><h2 class="sht map-title">PROYECTOS &mdash; WORLD 5</h2></div>
+    <p class="map-sub rev">Haz clic en cada nodo del mapa para ver el proyecto</p>
     @if (projects().length > 0) {
       <div class="map-cont">
         <div class="map-inner" [style.width.px]="getMapWidth(projects().length)" [style.height.px]="getMapHeight(projects().length)">

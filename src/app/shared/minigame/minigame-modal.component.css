@@ -5,3 +5,4 @@
 #mg-hud{font-size:6px;color:var(--white);text-align:center;margin-bottom:8px;}
 #gc{display:block;margin:0 auto;border:3px solid var(--gold);image-rendering:pixelated;}
 #mg-hint{font-size:5px;color:#555;text-align:center;margin-top:6px;}
+.mg-actions{text-align:center;margin-top:.625rem;}
