@@ -1,12 +1,3 @@
-type Project = {
-  w: string;
-  t: string;
-  d: string;
-  tags: string[];
-  demo: string;
-  gh: string;
-};
-
 type Skill = {
   n: string;
   ico: string;
@@ -51,40 +42,6 @@ const sectSeen: Record<string, boolean> = {};
 const vbars: HTMLDivElement[] = [];
 
 /* ===================== DATA ===================== */
-const PROJECTS: Project[] = [
-  {
-    w: 'WORLD 5-1',
-    t: 'API REST .NET',
-    d: 'Web API con .NET 8 y ASP.NET Core. Clean Architecture (Onion), patron Repository, JWT auth y Entity Framework Core con SQL Server.',
-    tags: ['C#', '.NET 8', 'SQL Server', 'JWT', 'EF Core'],
-    demo: '#',
-    gh: 'https://github.com/DanielC-04'
-  },
-  {
-    w: 'WORLD 5-2',
-    t: 'APP ANDROID BLE',
-    d: 'Aplicacion Android nativa con Kotlin. Comunicacion BLE con beacons FeasyBeacon, geolocalización indoor, Foreground Services y notificaciones sin internet.',
-    tags: ['Kotlin', 'Android', 'BLE', 'Beacons', 'IoT'],
-    demo: '#',
-    gh: 'https://github.com/DanielC-04'
-  },
-  {
-    w: 'WORLD 5-3',
-    t: 'ANGULAR 21 APP',
-    d: 'Frontend con Angular 21, TypeScript y RxJS. Componentes standalone, servicios, directivas personalizadas y consumo de APIs REST con manejo de estado reactivo.',
-    tags: ['Angular 21', 'TypeScript', 'RxJS', 'Bootstrap'],
-    demo: '#',
-    gh: 'https://github.com/DanielC-04'
-  },
-  {
-    w: 'CASTLE',
-    t: 'FULL STACK .NET + ANGULAR',
-    d: 'Aplicacion full-stack completa. Backend .NET 8 con Azure Entra ID, base de datos SQL Server en Azure. Frontend Angular integrado con Azure App Services.',
-    tags: ['C#', '.NET 8', 'Angular', 'Azure', 'SQL Server', 'Docker'],
-    demo: '#',
-    gh: 'https://github.com/DanielC-04'
-  }
-];
 
 const SKILLS: Skill[] = [
   { n: 'C#', ico: '<i class="devicon-csharp-plain colored"></i>', r: 'legendary', pct: 90, typ: 'Avanzado' },
@@ -382,37 +339,13 @@ export function openInv(): void {
 
 /* ===================== PROJECT MAP ===================== */
 export function openPm(i: number): void {
-  const p = PROJECTS[i];
-  if (!p) return;
-  const pmW = byId<HTMLSpanElement>('pm-w');
-  const pmT = byId<HTMLSpanElement>('pm-t');
-  const pmD = byId<HTMLParagraphElement>('pm-d');
-  const tags = byId<HTMLDivElement>('pm-tags');
-  const demo = byId<HTMLAnchorElement>('pm-demo');
-  const gh = byId<HTMLAnchorElement>('pm-gh');
-  const pm = byId<HTMLDivElement>('pm');
-  if (!pmW || !pmT || !pmD || !tags || !demo || !gh || !pm) return;
-  pmW.textContent = p.w;
-  pmT.textContent = p.t;
-  pmD.textContent = p.d;
-  tags.innerHTML = '';
-  p.tags.forEach((t) => {
-    const s = document.createElement('span');
-    s.className = 'pm-tag';
-    s.textContent = t;
-    tags.appendChild(s);
-  });
-  demo.href = p.demo;
-  gh.href = p.gh;
-  pm.classList.add('open');
+  window.dispatchEvent(new CustomEvent('pm:open', { detail: { index: i } }));
   playSound('sel');
   addScore(200);
 }
 
 export function closePm(): void {
-  const pm = byId<HTMLDivElement>('pm');
-  if (!pm) return;
-  pm.classList.remove('open');
+  window.dispatchEvent(new Event('pm:close'));
 }
 
 /* ===================== BOSS FIGHT ===================== */
