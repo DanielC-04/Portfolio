@@ -20,6 +20,7 @@ export class ProjectModalComponent {
   protected readonly activeTab;
   protected readonly activeMediaIndex;
   protected readonly media = computed(() => this.project()?.media ?? []);
+  protected readonly activeMedia = computed(() => this.media()[this.activeMediaIndex()] ?? null);
   protected readonly status = computed(() => this.stateSvc.resolveStatus(this.project()));
   protected readonly safeProject = computed(() => this.project()!);
   protected readonly tabContent = computed(() => {
@@ -27,13 +28,16 @@ export class ProjectModalComponent {
     if (!current) return '';
     const active = this.activeTab();
     if (active === 'README') {
-      return current.readme ?? 'README pendiente. Aqui ira el resumen tecnico del repo y decisiones de arquitectura.';
+      return current.readme ?? '';
     }
     if (active === 'STACK') {
-      return current.stack ?? `Stack principal: ${current.tags.join(', ')}`;
+      return current.stack ?? '';
     }
     return current.d;
   });
+  protected lightboxOpen = false;
+  protected lightboxUrl = '';
+  protected lightboxAlt = 'Project image';
 
   constructor(projectModalState: ProjectModalStateService) {
     this.stateSvc = projectModalState;
@@ -58,6 +62,18 @@ export class ProjectModalComponent {
     this.stateSvc.close();
   }
 
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.lightboxOpen) {
+      this.closeLightbox();
+      return;
+    }
+
+    if (this.isOpen()) {
+      this.closePm();
+    }
+  }
+
   closePm(): void {
     this.stateSvc.close();
     closePm();
@@ -77,6 +93,20 @@ export class ProjectModalComponent {
 
   setMedia(index: number): void {
     this.stateSvc.setMedia(index);
+  }
+
+  openLightbox(): void {
+    const media = this.activeMedia();
+    if (!media) return;
+    if ((media.type === 'image' || media.type === 'gif') && media.url) {
+      this.lightboxUrl = media.url;
+      this.lightboxAlt = media.label;
+      this.lightboxOpen = true;
+    }
+  }
+
+  closeLightbox(): void {
+    this.lightboxOpen = false;
   }
 
   isStatus(status: ProjectStatus): boolean {
