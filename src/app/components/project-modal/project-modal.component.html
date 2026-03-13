@@ -1,13 +1,98 @@
-<div id="pm">
-  <div class="pm-box">
-    <div class="pm-w" id="pm-w"></div>
-    <div class="pm-t" id="pm-t"></div>
-    <div class="pm-d" id="pm-d"></div>
-    <div class="pm-tags" id="pm-tags"></div>
-    <div class="pm-lnks">
-      <a href="#" class="btn btn-gold" id="pm-demo">DEMO</a>
-      <a href="#" class="btn btn-green" id="pm-gh">GITHUB</a>
-      <button class="btn btn-red" (click)="closePm()">CERRAR</button>
+@if (isOpen() && project()) {
+  <div id="pm" class="open">
+    <div class="pm-modal">
+      <div class="pm-header">
+        <div>
+          <div class="pm-title-top">{{ safeProject().w }}</div>
+          <div class="pm-title-main">{{ safeProject().t }}</div>
+        </div>
+        <button class="pm-close" (click)="closePm()">✕ CERRAR</button>
+      </div>
+
+      <div class="pm-body">
+        <div class="pm-preview-panel">
+          <div class="pm-preview">
+            <div class="pm-fake-screen">
+              <div class="pm-fake-bar">
+                <div class="pm-dot red"></div>
+                <div class="pm-dot yellow"></div>
+                <div class="pm-dot green"></div>
+                <span class="pm-fake-url">{{ safeProject().demo || 'localhost/project-preview' }}</span>
+              </div>
+              <div class="pm-fake-content">
+                <div class="pm-fake-sidebar"></div>
+                <div class="pm-fake-main">
+                  <div class="pm-row w50"></div>
+                  <div class="pm-row w85"></div>
+                  <div class="pm-row w60"></div>
+                  <div class="pm-row w40"></div>
+                  <div class="pm-card-block">
+                    <div class="pm-row w90"></div>
+                    <div class="pm-row w70"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pm-thumb-row">
+            @for (m of media(); track m.label; let i = $index) {
+              <button class="pm-thumb" [class.active]="activeMediaIndex() === i" (click)="setMedia(i)">
+                {{ m.label }}
+              </button>
+            }
+          </div>
+
+          <div class="pm-tabs">
+            @for (tab of tabs; track tab) {
+              <button class="pm-tab" [class.active]="activeTab() === tab" (click)="setTab(tab)">{{ tab }}</button>
+            }
+          </div>
+
+          <div class="pm-tab-content">{{ tabContent() }}</div>
+        </div>
+
+        <div class="pm-info-panel">
+          <div>
+            <div class="pm-section-label">Tecnologias</div>
+            <div class="pm-tags">
+              @for (tag of safeProject().tags; track tag) {
+                <span class="pm-tag">{{ tag }}</span>
+              }
+            </div>
+          </div>
+
+          <div>
+            <div class="pm-section-label">Caracteristicas</div>
+            <ul class="pm-feature-list">
+              @for (feature of safeProject().features ?? []; track feature) {
+                <li>{{ feature }}</li>
+              }
+            </ul>
+          </div>
+
+          <div>
+            <div class="pm-section-label">Estado</div>
+            <div class="pm-status-row">
+              <span class="pm-status-dot" [class.live]="isStatus('LIVE')" [class.dev]="isStatus('EN DESARROLLO')" [class.done]="isStatus('COMPLETADO')"></span>
+              <span class="pm-status-text" [class.live]="isStatus('LIVE')" [class.dev]="isStatus('EN DESARROLLO')" [class.done]="isStatus('COMPLETADO')">{{ status() }}</span>
+            </div>
+          </div>
+
+          <div class="pm-buttons">
+            <a [href]="safeProject().demo" class="pm-btn demo" target="_blank" rel="noopener noreferrer">▶ DEMO</a>
+            <a [href]="safeProject().gh" class="pm-btn github" target="_blank" rel="noopener noreferrer">⌥ GITHUB</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pm-footer">
+        <div class="pm-nav">
+          <button class="pm-nav-btn" (click)="prev()">◀ PREV</button>
+          <button class="pm-nav-btn" (click)="next()">NEXT ▶</button>
+        </div>
+        <div class="pm-counter">PROYECTO {{ currentIndex() + 1 }} / {{ total() }}</div>
+      </div>
     </div>
   </div>
-</div>
+}
