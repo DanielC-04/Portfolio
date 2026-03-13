@@ -1,13 +1,13 @@
-<section id="testsec" class="sw" style="background:#080820">
+<section id="testsec" class="sw test-section">
   <div class="si">
-    <div class="shead"><div class="shb">&#128172;</div><h2 class="sht" style="color:#fff">ALDEANOS &mdash; WORLD 7</h2></div>
-    <p style="font-family:var(--fb);font-size:20px;color:#555;margin-bottom:28px">Lo que dicen los aldeanos del reino...</p>
+    <div class="shead"><div class="shb">&#128172;</div><h2 class="sht test-title">ALDEANOS &mdash; WORLD 7</h2></div>
+    <p class="test-sub">Lo que dicen los aldeanos del reino...</p>
     <div class="ald-grid" id="ald-grid">
       <!-- Aldeano 1: Profesor/Mentor UTP -->
       <div class="ald-card rev">
         <div class="ald-hdr">
           <div class="ald-ava">
-            <svg width="52" height="52" viewBox="0 0 20 20" style="image-rendering:pixelated">
+            <svg width="52" height="52" viewBox="0 0 20 20" class="ald-avatar-svg">
               <rect x="5" y="0" width="10" height="2" fill="#f8b800"/>
               <rect x="4" y="2" width="12" height="2" fill="#f8b800"/>
               <rect x="3" y="4" width="14" height="8" fill="#ffe0b0"/>
@@ -31,7 +31,7 @@
       <div class="ald-card rev">
         <div class="ald-hdr">
           <div class="ald-ava">
-            <svg width="52" height="52" viewBox="0 0 20 20" style="image-rendering:pixelated">
+            <svg width="52" height="52" viewBox="0 0 20 20" class="ald-avatar-svg">
               <rect x="6" y="0" width="8" height="2" fill="#512BD4"/>
               <rect x="4" y="2" width="12" height="2" fill="#512BD4"/>
               <rect x="3" y="4" width="14" height="8" fill="#ffe0b0"/>
@@ -55,7 +55,7 @@
       <div class="ald-card rev">
         <div class="ald-hdr">
           <div class="ald-ava">
-            <svg width="52" height="52" viewBox="0 0 20 20" style="image-rendering:pixelated">
+            <svg width="52" height="52" viewBox="0 0 20 20" class="ald-avatar-svg">
               <rect x="5" y="0" width="10" height="3" fill="#00b300"/>
               <rect x="4" y="3" width="12" height="2" fill="#00b300"/>
               <rect x="3" y="5" width="14" height="7" fill="#ffe0b0"/>
@@ -76,7 +76,7 @@
       </div>
     </div>
     <!-- Add testimonial form -->
-    <div class="ald-form-box rev" style="margin-top:28px">
+    <div class="ald-form-box rev test-form-box">
       <div class="ald-form-title">DEJA TU TESTIMONIO</div>
       <form (submit)="submitAld($event)">
         <div class="ald-inputs">
@@ -84,7 +84,7 @@
           <div><label class="ald-lbl">ROL:</label><input class="ald-inp" id="ald-role" placeholder="Dev / Profe / Amigo..."></div>
           <div class="ald-full"><label class="ald-lbl">MENSAJE:</label><textarea class="ald-ta" id="ald-msg-inp" placeholder="Tu mensaje para Daniel..." required></textarea></div>
         </div>
-        <button type="submit" class="btn btn-gold" style="padding:10px 20px;font-size:8px">ENVIAR TESTIMONIO</button>
+        <button type="submit" class="btn btn-gold test-submit">ENVIAR TESTIMONIO</button>
       </form>
       <div id="ald-msg"></div>
     </div>

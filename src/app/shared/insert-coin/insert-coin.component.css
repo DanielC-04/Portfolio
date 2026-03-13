@@ -2,6 +2,8 @@
 .ic-t{font-size:clamp(16px,4vw,32px);color:var(--gold);text-shadow:4px 4px 0 var(--red);text-align:center;animation:glow 1s ease-in-out infinite alternate;}
 .ic-n{font-size:clamp(8px,2vw,14px);color:var(--blue);}
 .ic-s{font-size:8px;color:var(--white);animation:blink 0.9s step-end infinite;}
+.ic-avatar{image-rendering:pixelated;}
+.ic-meta{font-size:.3125rem;color:#333;}
 .ic-bar{width:min(280px,80vw);height:10px;background:#111;border:2px solid #333;overflow:hidden;}
 .ic-f{height:100%;width:0%;background:var(--green);animation:fillup 2.5s ease-out forwards;}
 @keyframes fillup{to{width:100%;}}

@@ -1,11 +1,21 @@
-.story-box{background:var(--dark);border:4px solid var(--gold);padding:28px;box-shadow:8px 8px 0 var(--gdk);}
-.story-hdr{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:3px solid var(--gdk);}
-.snar{font-size:6px;color:var(--gold);}
-.snar span{display:block;font-family:var(--fb);font-size:15px;color:#666;margin-top:2px;}
-.sl-wrap{display:flex;flex-direction:column;gap:14px;}
-.sl{display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateX(-18px);transition:opacity 0.5s,transform 0.5s;}
+.story-section{background:#08081a;}
+.story-title{color:#fff;}
+.story-box{background:var(--dark);border:.25rem solid var(--gold);padding:1.75rem;box-shadow:.5rem .5rem 0 var(--gdk);}
+.story-hdr{display:flex;align-items:center;gap:.875rem;margin-bottom:1.25rem;padding-bottom:.875rem;border-bottom:.1875rem solid var(--gdk);}
+.story-avatar-svg{image-rendering:pixelated;}
+.snar{font-size:.375rem;color:var(--gold);}
+.snar span{display:block;font-family:var(--fb);font-size:.9375rem;color:#666;margin-top:.125rem;}
+.sl-wrap{display:flex;flex-direction:column;gap:.875rem;}
+.sl{display:flex;align-items:flex-start;gap:.75rem;opacity:0;transform:translateX(-1.125rem);transition:opacity .5s,transform .5s;}
 .sl.on{opacity:1;transform:translateX(0);}
-.sl-yr{font-size:8px;color:var(--gold);flex-shrink:0;width:80px;padding-top:4px;}
-.sl-bub{background:#0a0a28;border:3px solid #1a1a50;padding:12px;flex:1;position:relative;}
-.sl-bub::before{content:'';position:absolute;left:-8px;top:10px;border:4px solid transparent;border-right-color:#1a1a50;}
-.sl-txt{font-family:var(--fb);font-size:22px;color:#ccc;line-height:1.6;}
+.sl-yr{font-size:.5rem;color:var(--gold);flex-shrink:0;width:5rem;padding-top:.25rem;}
+.sl-bub{background:#0a0a28;border:.1875rem solid #1a1a50;padding:.75rem;flex:1;position:relative;}
+.sl-bub::before{content:'';position:absolute;left:-.5rem;top:.625rem;border:.25rem solid transparent;border-right-color:#1a1a50;}
+.sl-txt{font-family:var(--fb);font-size:1.375rem;color:#ccc;line-height:1.6;}
+
+@media (max-width: 768px){
+  .story-box{padding:1.125rem;}
+  .sl{gap:.5rem;}
+  .sl-yr{width:4.25rem;}
+  .sl-txt{font-size:1.1875rem;}
+}

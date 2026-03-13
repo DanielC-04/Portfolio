@@ -25,13 +25,18 @@ export class ProjectsMapComponent {
 
   private buildLayout(total: number): MapLayout {
     const safeTotal = Math.max(total, 1);
-    const cols = Math.min(7, safeTotal);
+    const viewportWidth = window.innerWidth;
+    const cols = viewportWidth < 768
+      ? Math.min(3, safeTotal)
+      : viewportWidth <= 1024
+        ? Math.min(5, safeTotal)
+        : Math.min(7, safeTotal);
     const rows = Math.ceil(safeTotal / cols);
-    const sidePadding = 90;
-    const width = 1560;
+    const sidePadding = viewportWidth < 768 ? 64 : viewportWidth <= 1024 ? 76 : 90;
+    const width = viewportWidth < 768 ? 960 : viewportWidth <= 1024 ? 1280 : 1560;
     const xGap = cols > 1 ? (width - sidePadding * 2) / (cols - 1) : 0;
-    const rowGap = 140;
-    const startY = 156;
+    const rowGap = viewportWidth < 768 ? 132 : 140;
+    const startY = viewportWidth < 768 ? 148 : 156;
 
     const points: MapPoint[] = [];
     for (let i = 0; i < safeTotal; i++) {
@@ -40,7 +45,7 @@ export class ProjectsMapComponent {
       const isEvenRow = row % 2 === 0;
       const visualCol = isEvenRow ? colInRow : cols - 1 - colInRow;
       const x = Math.round(sidePadding + visualCol * xGap);
-      const yWave = colInRow % 2 === 0 ? 20 : -18;
+      const yWave = colInRow % 2 === 0 ? 18 : -16;
       const y = startY + row * rowGap + yWave;
       points.push({ x, y });
     }
@@ -72,10 +77,11 @@ export class ProjectsMapComponent {
   }
 
   private getLayout(total: number): MapLayout {
-    const key = Math.max(total, 1);
+    const viewportBucket = window.innerWidth < 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
+    const key = Math.max(total, 1) * 10 + viewportBucket;
     const cached = this.layoutCache.get(key);
     if (cached) return cached;
-    const layout = this.buildLayout(key);
+    const layout = this.buildLayout(Math.max(total, 1));
     this.layoutCache.set(key, layout);
     return layout;
   }

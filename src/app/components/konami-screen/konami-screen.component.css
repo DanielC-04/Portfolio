@@ -1,9 +1,12 @@
 #konami-screen{
   display:none;position:fixed;inset:0;background:#000;z-index:99990;
-  align-items:center;justify-content:center;flex-direction:column;gap:24px;
+  align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;
 }
 #konami-screen.show{display:flex;}
-.konami-title{font-size:clamp(14px,3vw,28px);color:var(--gold);text-shadow:4px 4px 0 var(--red);animation:glow 0.5s ease-in-out infinite alternate;text-align:center;}
-.konami-sub{font-family:var(--fb);font-size:22px;color:#888;text-align:center;}
-.konami-stars{font-size:36px;animation:ks 1s linear infinite;}
+.konami-title{font-size:clamp(.875rem,3vw,1.75rem);color:var(--gold);text-shadow:.25rem .25rem 0 var(--red);animation:glow 0.5s ease-in-out infinite alternate;text-align:center;}
+.konami-sub{font-family:var(--fb);font-size:1.375rem;color:#888;text-align:center;}
+.konami-stars{font-size:2.25rem;animation:ks 1s linear infinite;}
+.konami-icons{font-size:3rem;}
+.konami-code{font-size:.75rem;color:#f8b800;font-family:var(--fn);margin-top:.5rem;text-align:center;}
+.konami-btn{margin-top:1rem;padding:.75rem 1.25rem;font-size:.5625rem;}
 @keyframes ks{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
