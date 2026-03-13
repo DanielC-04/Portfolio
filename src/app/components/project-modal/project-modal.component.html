@@ -12,27 +12,31 @@
       <div class="pm-body">
         <div class="pm-preview-panel">
           <div class="pm-preview">
-            <div class="pm-fake-screen">
-              <div class="pm-fake-bar">
-                <div class="pm-dot red"></div>
-                <div class="pm-dot yellow"></div>
-                <div class="pm-dot green"></div>
-                <span class="pm-fake-url">{{ safeProject().demo || 'localhost/project-preview' }}</span>
-              </div>
-              <div class="pm-fake-content">
-                <div class="pm-fake-sidebar"></div>
-                <div class="pm-fake-main">
-                  <div class="pm-row w50"></div>
-                  <div class="pm-row w85"></div>
-                  <div class="pm-row w60"></div>
-                  <div class="pm-row w40"></div>
-                  <div class="pm-card-block">
-                    <div class="pm-row w90"></div>
-                    <div class="pm-row w70"></div>
+            @if (activeMedia() && (activeMedia()!.type === 'image' || activeMedia()!.type === 'gif') && activeMedia()!.url) {
+              <img class="pm-preview-img" [src]="activeMedia()!.url" [alt]="activeMedia()!.label" (click)="openLightbox()">
+            } @else {
+              <div class="pm-fake-screen">
+                <div class="pm-fake-bar">
+                  <div class="pm-dot red"></div>
+                  <div class="pm-dot yellow"></div>
+                  <div class="pm-dot green"></div>
+                  <span class="pm-fake-url">{{ safeProject().demo }}</span>
+                </div>
+                <div class="pm-fake-content">
+                  <div class="pm-fake-sidebar"></div>
+                  <div class="pm-fake-main">
+                    <div class="pm-row w50"></div>
+                    <div class="pm-row w85"></div>
+                    <div class="pm-row w60"></div>
+                    <div class="pm-row w40"></div>
+                    <div class="pm-card-block">
+                      <div class="pm-row w90"></div>
+                      <div class="pm-row w70"></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
 
           <div class="pm-thumb-row">
@@ -93,6 +97,19 @@
         </div>
         <div class="pm-counter">PROYECTO {{ currentIndex() + 1 }} / {{ total() }}</div>
       </div>
+    </div>
+  </div>
+}
+
+@if (!isOpen() && total() === 0) {
+  <div id="pm-data-alert">No hay proyectos disponibles desde Google Sheets.</div>
+}
+
+@if (lightboxOpen) {
+  <div class="pm-lightbox" (click)="closeLightbox()">
+    <div class="pm-lightbox-inner" (click)="$event.stopPropagation()">
+      <button class="pm-lightbox-close" (click)="closeLightbox()">✕</button>
+      <img class="pm-lightbox-img" [src]="lightboxUrl" [alt]="lightboxAlt">
     </div>
   </div>
 }

@@ -1,4 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
+import { fetchPortfolioRoute } from '../../config/portfolio-api';
 
 export type ProjectStatus = 'LIVE' | 'EN DESARROLLO' | 'COMPLETADO';
 export type ProjectTab = 'INFO' | 'README' | 'STACK';
@@ -30,88 +31,67 @@ const DEFAULT_MEDIA: ProjectMedia[] = [
   { label: 'GIF', type: 'placeholder' }
 ];
 
-const PROJECTS: ProjectItem[] = [
-  {
-    w: 'WORLD 5-1',
-    t: 'API REST .NET',
-    d: 'Web API con .NET 8 y ASP.NET Core. Clean Architecture (Onion), patron Repository, JWT auth y Entity Framework Core con SQL Server.',
-    tags: ['C#', '.NET 8', 'SQL Server', 'JWT', 'EF Core'],
-    demo: '#',
-    gh: 'https://github.com/DanielC-04',
-    features: [
-      'Autenticacion con JWT y refresh tokens',
-      'Arquitectura limpia en capas Onion',
-      'Repository Pattern + buenas practicas SOLID',
-      'CRUD completo con validaciones',
-      'Swagger para documentacion de endpoints'
-    ],
-    status: 'COMPLETADO',
-    readme: 'Proyecto backend enfocado en escalabilidad, seguridad y mantenimiento con .NET 8.',
-    stack: 'ASP.NET Core, Entity Framework Core, SQL Server, JWT, Swagger',
-    media: DEFAULT_MEDIA
-  },
-  {
-    w: 'WORLD 5-2',
-    t: 'APP ANDROID BLE',
-    d: 'Aplicacion Android nativa con Kotlin. Comunicacion BLE con beacons FeasyBeacon, geolocalizacion indoor, Foreground Services y notificaciones sin internet.',
-    tags: ['Kotlin', 'Android', 'BLE', 'Beacons', 'IoT'],
-    demo: '#',
-    gh: 'https://github.com/DanielC-04',
-    features: [
-      'Escaneo y lectura de beacons BLE',
-      'Servicios en segundo plano (foreground)',
-      'Notificaciones locales sin conexion',
-      'Logica de proximidad indoor',
-      'Arquitectura modular para escalar features'
-    ],
-    status: 'COMPLETADO',
-    readme: 'Aplicacion orientada a escenarios IoT y geolocalizacion indoor para Android nativo.',
-    stack: 'Kotlin, Android SDK, BLE, Foreground Services, Notifications',
-    media: DEFAULT_MEDIA
-  },
-  {
-    w: 'WORLD 5-3',
-    t: 'ANGULAR 21 APP',
-    d: 'Frontend con Angular 21, TypeScript y RxJS. Componentes standalone, servicios, directivas personalizadas y consumo de APIs REST.',
-    tags: ['Angular 21', 'TypeScript', 'RxJS', 'Bootstrap'],
-    demo: '#',
-    gh: 'https://github.com/DanielC-04',
-    features: [
-      'Arquitectura standalone component-first',
-      'Estado reactivo con RxJS',
-      'UI retro con componentes reutilizables',
-      'Integracion con APIs REST',
-      'Diseño responsivo mobile-first'
-    ],
-    status: 'LIVE',
-    readme: 'Frontend principal del portfolio con enfoque interactivo y estilo pixel retro.',
-    stack: 'Angular 21, TypeScript, RxJS, CSS, HTML',
-    media: DEFAULT_MEDIA
-  },
-  {
-    w: 'CASTLE',
-    t: 'FULL STACK .NET + ANGULAR',
-    d: 'Aplicacion full-stack. Backend .NET 8 con Azure Entra ID y SQL Server en Azure. Frontend Angular integrado con App Services.',
-    tags: ['C#', '.NET 8', 'Angular', 'Azure', 'SQL Server', 'Docker'],
-    demo: '#',
-    gh: 'https://github.com/DanielC-04',
-    features: [
-      'Autenticacion empresarial con Azure Entra ID',
-      'Backend y frontend desacoplados',
-      'Despliegue en servicios cloud',
-      'Contenerizacion para entornos consistentes',
-      'Pipeline pensado para CI/CD'
-    ],
-    status: 'EN DESARROLLO',
-    readme: 'Proyecto full-stack en evolucion para despliegue cloud y arquitectura empresarial.',
-    stack: '.NET 8, Angular, Azure App Services, SQL Server, Docker',
-    media: DEFAULT_MEDIA
-  }
-];
+type ProjectApiItem = {
+  id?: string;
+  w?: string;
+  t?: string;
+  d?: string;
+  tags?: string[];
+  features?: string[];
+  status?: string;
+  demo?: string;
+  gh?: string;
+  readme?: string;
+  stack?: string;
+  media?: Array<{ label?: string; type?: string; url?: string }>;
+};
+
+function normalizeStatus(status?: string): ProjectStatus {
+  if (status === 'LIVE') return 'LIVE';
+  if (status === 'COMPLETADO') return 'COMPLETADO';
+  return 'EN DESARROLLO';
+}
+
+function normalizeMedia(media?: Array<{ label?: string; type?: string; url?: string }>): ProjectMedia[] {
+  if (!media || !media.length) return DEFAULT_MEDIA;
+  const normalized = media.map((item, index) => {
+    const fallbackLabel: ProjectMedia['label'] =
+      index === 1 ? 'SCR 2' : index === 2 ? 'SCR 3' : index === 3 ? 'GIF' : 'SCR 1';
+
+    const label = item.label === 'SCR 1' || item.label === 'SCR 2' || item.label === 'SCR 3' || item.label === 'GIF'
+      ? item.label
+      : fallbackLabel;
+
+    const type: ProjectMedia['type'] = item.type === 'image' || item.type === 'gif' ? item.type : 'placeholder';
+    return {
+      label,
+      type,
+      url: item.url ?? ''
+    };
+  });
+
+  return normalized.length ? normalized : DEFAULT_MEDIA;
+}
+
+function mapProjectApi(item: ProjectApiItem): ProjectItem {
+  return {
+    w: (item.w ?? '').trim(),
+    t: (item.t ?? '').trim(),
+    d: (item.d ?? '').trim(),
+    tags: Array.isArray(item.tags) ? item.tags : [],
+    demo: (item.demo ?? '#').trim() || '#',
+    gh: (item.gh ?? '#').trim() || '#',
+    features: Array.isArray(item.features) ? item.features : [],
+    status: normalizeStatus(item.status),
+    readme: (item.readme ?? '').trim(),
+    stack: (item.stack ?? '').trim(),
+    media: normalizeMedia(item.media)
+  };
+}
 
 @Injectable({ providedIn: 'root' })
 export class ProjectModalStateService {
-  private readonly projectsSignal = signal<ProjectItem[]>(PROJECTS);
+  private readonly projectsSignal = signal<ProjectItem[]>([]);
   private readonly openSignal = signal(false);
   private readonly currentIndexSignal = signal(0);
   private readonly activeTabSignal = signal<ProjectTab>('INFO');
@@ -130,6 +110,26 @@ export class ProjectModalStateService {
   });
 
   readonly totalProjects = computed(() => this.projectsSignal().length);
+
+  constructor() {
+    void this.loadProjects();
+  }
+
+  private async loadProjects(): Promise<void> {
+    try {
+      const remote = await fetchPortfolioRoute<ProjectApiItem>('projects');
+      const mapped = remote
+        .map(mapProjectApi)
+        .filter((p) => p.w.length > 0 && p.t.length > 0 && p.t.toLowerCase() !== 'proyecto');
+      if (mapped.length) {
+        this.projectsSignal.set(mapped);
+      } else {
+        this.projectsSignal.set([]);
+      }
+    } catch {
+      this.projectsSignal.set([]);
+    }
+  }
 
   open(index: number): void {
     const max = this.projectsSignal().length - 1;

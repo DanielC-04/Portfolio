@@ -1,22 +1,29 @@
-<section id="mapsec" class="sw" style="background:#0a1830">
+<section id="mapsec" class="sw map-wide" style="background:#0a1830">
   <div class="si">
     <div class="shead"><div class="shb">&#127981;</div><h2 class="sht" style="color:#fff">PROYECTOS &mdash; WORLD 5</h2></div>
     <p style="font-family:var(--fb);font-size:19px;color:#666;margin-bottom:24px" class="rev">Haz clic en cada nodo del mapa para ver el proyecto</p>
-    <div class="map-cont rev">
-      <div class="map-inner">
-        <svg class="map-svg" viewBox="0 0 680 300" preserveAspectRatio="none">
-          <path d="M 80 200 Q 200 100 310 170 Q 420 240 530 140 Q 600 90 630 130" stroke="#f8b800" stroke-width="7" fill="none" stroke-dasharray="14,9" opacity="0.8"/>
-          <circle cx="80" cy="200" r="9" fill="#f8b800"/>
-          <circle cx="310" cy="170" r="9" fill="#f8b800"/>
-          <circle cx="530" cy="140" r="9" fill="#f8b800"/>
-          <circle cx="630" cy="130" r="9" fill="#d63031"/>
-        </svg>
-        <div class="mn" style="left:80px;top:200px" (click)="openPm(0)"><span class="mn-i">&#128640;</span><div class="mn-n">W 5-1</div><div class="mn-l">API REST<br>.NET</div></div>
-        <div class="mn" style="left:310px;top:170px" (click)="openPm(1)"><span class="mn-i">&#128241;</span><div class="mn-n">W 5-2</div><div class="mn-l">APP<br>ANDROID</div></div>
-        <div class="mn" style="left:530px;top:140px" (click)="openPm(2)"><span class="mn-i">&#127760;</span><div class="mn-n">W 5-3</div><div class="mn-l">ANGULAR<br>APP</div></div>
-        <div class="mn castle" style="left:630px;top:130px" (click)="openPm(3)"><span class="mn-i">&#127963;</span><div class="mn-n">CASTLE</div><div class="mn-l">FULL<br>STACK</div></div>
+    @if (projects().length > 0) {
+      <div class="map-cont">
+        <div class="map-inner" [style.width.px]="getMapWidth(projects().length)" [style.height.px]="getMapHeight(projects().length)">
+          <svg class="map-svg" [attr.viewBox]="'0 0 ' + getMapWidth(projects().length) + ' ' + getMapHeight(projects().length)" preserveAspectRatio="none">
+            <path [attr.d]="getMapPath(projects().length)" stroke="#f8b800" stroke-width="7" fill="none" stroke-dasharray="14,9" opacity="0.8"/>
+            @for (project of projects(); track project.w + project.t; let i = $index) {
+              <circle [attr.cx]="getNodePoint(i, projects().length).x" [attr.cy]="getNodePoint(i, projects().length).y" r="9" [attr.fill]="i === projects().length - 1 && projects().length > 1 ? '#d63031' : '#f8b800'"/>
+            }
+          </svg>
+
+          @for (project of projects(); track project.w + project.t; let i = $index) {
+            <div [class]="getNodeClass(i, projects().length)" [style]="getNodeStyle(i, projects().length)" (click)="openPm(i)">
+              <span class="mn-i">&#128640;</span>
+              <div class="mn-n">{{ project.w }}</div>
+              <div class="mn-l" [innerHTML]="nodeLabel(project)"></div>
+            </div>
+          }
+        </div>
       </div>
-    </div>
+    } @else {
+      <div class="map-empty">No hay proyectos cargados desde Google Sheets.</div>
+    }
   </div>
 </section>
 

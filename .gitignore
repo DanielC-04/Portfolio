@@ -27,6 +27,14 @@ modules/.vscode
 # Don't check in secret files
 *secret.js
 
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Angular environment variants (single-env portfolio)
+src/environments/environment.ts
+
 # Ignore npm/yarn debug log
 npm-debug.log
 yarn-error.log

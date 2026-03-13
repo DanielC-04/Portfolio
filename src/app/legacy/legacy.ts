@@ -1,9 +1,19 @@
+import { fetchPortfolioRoute } from '../config/portfolio-api';
+
 type Skill = {
   n: string;
   ico: string;
   r: 'legendary' | 'epic' | 'rare' | 'common';
   pct: number;
   typ: 'Aprendiendo' | 'Intermedio' | 'Avanzado';
+};
+
+type SkillApiItem = {
+  n?: string;
+  ico?: string;
+  r?: string;
+  pct?: number;
+  typ?: string;
 };
 
 type Achievement = {
@@ -43,29 +53,48 @@ const vbars: HTMLDivElement[] = [];
 
 /* ===================== DATA ===================== */
 
-const SKILLS: Skill[] = [
-  { n: 'C#', ico: '<i class="devicon-csharp-plain colored"></i>', r: 'legendary', pct: 90, typ: 'Avanzado' },
-  { n: '.NET 8', ico: '<i class="devicon-dotnetcore-plain colored"></i>', r: 'legendary', pct: 88, typ: 'Avanzado' },
-  { n: 'Angular 21', ico: '<i class="devicon-angularjs-plain colored"></i>', r: 'epic', pct: 84, typ: 'Avanzado' },
-  { n: 'TypeScript', ico: '<i class="devicon-typescript-plain colored"></i>', r: 'epic', pct: 82, typ: 'Avanzado' },
-  { n: 'SQL Server', ico: '<i class="devicon-microsoftsqlserver-plain colored"></i>', r: 'rare', pct: 80, typ: 'Avanzado' },
-  { n: 'Entity Framework', ico: '<i class="devicon-dotnetcore-plain colored"></i>', r: 'rare', pct: 56, typ: 'Aprendiendo' },
-  { n: 'Azure', ico: '<i class="devicon-azure-plain colored"></i>', r: 'rare', pct: 52, typ: 'Aprendiendo' },
-  { n: 'Docker', ico: '<i class="devicon-docker-plain colored"></i>', r: 'common', pct: 50, typ: 'Aprendiendo' },
-  { n: 'Kotlin', ico: '<i class="devicon-kotlin-plain colored"></i>', r: 'rare', pct: 72, typ: 'Intermedio' },
-  { n: 'Python', ico: '<i class="devicon-python-plain colored"></i>', r: 'common', pct: 70, typ: 'Intermedio' },
-  { n: 'Git', ico: '<i class="devicon-git-plain colored"></i>', r: 'epic', pct: 76, typ: 'Intermedio' },
-  { n: 'Node.js', ico: '<i class="devicon-nodejs-plain colored"></i>', r: 'common', pct: 68, typ: 'Intermedio' },
-  { n: 'PHP', ico: '<i class="devicon-php-plain colored"></i>', r: 'common', pct: 65, typ: 'Intermedio' },
-  { n: 'Java', ico: '<i class="devicon-java-plain colored"></i>', r: 'rare', pct: 71, typ: 'Intermedio' },
-  { n: 'Android', ico: '<i class="devicon-android-plain colored"></i>', r: 'rare', pct: 70, typ: 'Intermedio' },
-  { n: 'GitHub', ico: '<i class="devicon-github-original colored"></i>', r: 'common', pct: 67, typ: 'Intermedio' },
-  { n: 'VS Code', ico: '<i class="devicon-vscode-plain colored"></i>', r: 'common', pct: 69, typ: 'Intermedio' },
-  { n: 'Postman', ico: '<i class="devicon-postman-plain colored"></i>', r: 'common', pct: 64, typ: 'Intermedio' },
-  { n: 'Bootstrap', ico: '<i class="devicon-bootstrap-plain colored"></i>', r: 'common', pct: 68, typ: 'Intermedio' },
-  { n: 'MySQL', ico: '<i class="devicon-mysql-plain colored"></i>', r: 'rare', pct: 66, typ: 'Intermedio' },
-  { n: 'MongoDB', ico: '<i class="devicon-mongodb-plain colored"></i>', r: 'common', pct: 53, typ: 'Aprendiendo' }
-];
+let SKILLS: Skill[] = [];
+
+function normalizeRarity(value?: string): Skill['r'] {
+  if (value === 'legendary' || value === 'epic' || value === 'rare' || value === 'common') {
+    return value;
+  }
+  return 'common';
+}
+
+function normalizeType(value?: string): Skill['typ'] {
+  if (value === 'Avanzado' || value === 'Intermedio' || value === 'Aprendiendo') {
+    return value;
+  }
+  return 'Intermedio';
+}
+
+function normalizePct(value?: number): number {
+  const n = Number(value);
+  if (Number.isNaN(n)) return 0;
+  return Math.max(0, Math.min(100, n));
+}
+
+async function loadSkills(): Promise<void> {
+  try {
+    const remote = await fetchPortfolioRoute<SkillApiItem>('skills');
+    const mapped = remote
+      .map((item) => ({
+        n: item.n?.trim() ?? '',
+        ico: item.ico?.trim() ?? '',
+        r: normalizeRarity(item.r),
+        pct: normalizePct(item.pct),
+        typ: normalizeType(item.typ)
+      }))
+      .filter((item) => item.n.length > 0);
+
+    if (mapped.length) {
+      SKILLS = mapped;
+    }
+  } catch {
+    SKILLS = [];
+  }
+}
 
 const ACHIEVEMENTS: Achievement[] = [
   { id: 'first', ico: '&#127381;', n: 'PRIMER CLICK', d: 'Interactuaste por primera vez', u: false },
@@ -270,7 +299,7 @@ export function goSec(id: string): void {
 }
 
 /* ===================== INSERT COIN ===================== */
-function legacyInit(): void {
+async function legacyInit(): Promise<void> {
   const ic = byId<HTMLDivElement>('ic');
   if (!ic) return;
   const dismiss = () => {
@@ -300,6 +329,7 @@ function legacyInit(): void {
   startTimer();
   buildAch();
   buildViz();
+  await loadSkills();
   buildInv();
   buildBoss();
 }
@@ -339,6 +369,7 @@ export function openInv(): void {
 
 /* ===================== PROJECT MAP ===================== */
 export function openPm(i: number): void {
+  if (!window.dispatchEvent) return;
   window.dispatchEvent(new CustomEvent('pm:open', { detail: { index: i } }));
   playSound('sel');
   addScore(200);
@@ -876,7 +907,7 @@ export function downloadCV(): void {
 }
 
 export function initLegacy(): void {
-  legacyInit();
+  void legacyInit();
   cur = byId<HTMLElement>('cur');
   setTimeout(() => {
     setupRevealAndTracking();
