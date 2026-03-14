@@ -1,1 +1,9 @@
 #cur{position:fixed;width:20px;height:20px;pointer-events:none;z-index:120000;transform:translate(-50%,-50%);opacity:0;transition:opacity .12s linear;will-change:left,top,opacity;}
+
+@media (max-width: 1024px){
+  #cur{display:none !important;}
+}
+
+@media (hover: none), (pointer: coarse){
+  #cur{display:none !important;}
+}
