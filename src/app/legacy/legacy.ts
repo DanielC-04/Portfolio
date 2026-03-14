@@ -419,15 +419,31 @@ export function closePm(): void {
 function buildBoss(): void {
   const container = byId<HTMLDivElement>('bqs');
   if (!container) return;
+  bossHp = 5;
+  const bhpf = byId<HTMLDivElement>('bhpf');
+  const bhpl = byId<HTMLDivElement>('bhpl');
+  const bres = byId<HTMLDivElement>('bres');
+  const bmsg = byId<HTMLDivElement>('bmsg');
+  if (bhpf) bhpf.style.width = '100%';
+  if (bhpl) bhpl.textContent = 'HP: 5 / 5';
+  if (bres) bres.classList.remove('show');
+  if (bmsg) bmsg.textContent = '';
   container.innerHTML = '';
-  BOSS_QS.forEach((q, qi) => {
+  BOSS_QS.forEach((q) => {
     const div = document.createElement('div');
     div.className = 'bq';
     let opts = '';
     q.opts.forEach((o, oi) => {
-      opts += `<button class="bopt" onclick="answerBoss(${oi},${q.a},this)">${String.fromCharCode(65 + oi)}) ${o}</button>`;
+      opts += `<button class="bopt" data-picked="${oi}" data-correct="${q.a}">${String.fromCharCode(65 + oi)}) ${o}</button>`;
     });
     div.innerHTML = `<div class="bq-t">${q.q}</div><div class="bopts">${opts}</div>`;
+    div.querySelectorAll<HTMLButtonElement>('.bopt').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const picked = Number(btn.dataset['picked'] ?? -1);
+        const correct = Number(btn.dataset['correct'] ?? -1);
+        answerBoss(picked, correct, btn);
+      });
+    });
     container.appendChild(div);
   });
 }
