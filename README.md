@@ -6,16 +6,16 @@
 
 # 🎮 DEV.WORLD — Portfolio de Daniel Carrasco
 
-[![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)]()
-[![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)]()
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)]()
 [![Angular](https://img.shields.io/badge/Angular_21-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)]()
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)]()
+[![Google Sheets](https://img.shields.io/badge/Google_Sheets-34A853?style=for-the-badge&logo=google-sheets&logoColor=white)]()
+[![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://portfoliodaniel.blazeops.tech)
+[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=for-the-badge)]()
 
 > Portfolio personal con estética **pixel art retro** inspirada en videojuegos clásicos.
-> Un archivo HTML interactivo con minijuego, boss fight, inventario RPG y más.
+> Construido en Angular 21 con contenido dinámico desde Google Sheets, minijuego, boss fight, inventario RPG y más.
 
-[🕹️ Ver Demo](#) &nbsp;·&nbsp; [📬 Contacto](mailto:dsotillo20@gmail.com) &nbsp;·&nbsp; [💼 LinkedIn](https://linkedin.com/in/TU-USUARIO-LINKEDIN)
+[🕹️ Ver Demo](https://portfoliodaniel.blazeops.tech) &nbsp;·&nbsp; [📬 Contacto](mailto:carrascoarrocha3@gmail.com) &nbsp;·&nbsp; [💼 LinkedIn](https://linkedin.com/in/danielcarrasco02)
 
 </div>
 
@@ -45,11 +45,11 @@
 | 🎒 **Inventario RPG** | Skills clasificadas por rareza: Común / Raro / Épico / Legendario |
 | 🗺️ **World Map** | Proyectos en un mapa con nodos clicables y rutas animadas |
 | 🔥 **Boss Fight** | Quiz interactivo sobre el perfil del desarrollador |
-| 👥 **Aldeanos** | Testimonios con 3 personajes + form para agregar nuevos |
+| 👥 **Aldeanos** | Testimonios reales con moderación + form para dejar opiniones |
 | 📊 **GitHub Stats** | Tarjetas en vivo desde `github-profile-summary-cards` |
 | 👾 **Minijuego Runner** | Esquiva bugs pixel art. Tiene hi-score |
 | 🌙 **Modo Oscuro** | Toggle día/noche con estrellas animadas en el hero |
-| 💾 **Descargar CV** | Genera y descarga el CV desde el browser |
+| 💾 **Descargar CV** | Descarga directa del CV en PDF desde Google Drive |
 | ⚡ **Combo System** | Multiplicador de puntos por clicks rápidos |
 | 🪙 **Lluvia de Monedas** | Se activa al ganar el boss o enviar mensajes |
 | 🏆 **10 Logros** | Sistema de achievements desbloqueables |
@@ -57,6 +57,7 @@
 | 🕹️ **Easter Egg Konami** | ↑↑↓↓←→←→BA para activar modo secreto |
 | 🎯 **Cursor Custom** | Cursor pixel art en forma de cruz dorada |
 | 📈 **Barra de Progreso** | Scroll progress bar en la parte superior |
+| 📋 **CMS Dinámico** | Skills, proyectos, trayectoria y testimonios desde Google Sheets |
 
 ---
 
@@ -84,28 +85,36 @@ src/app/
 │   ├── score.service.ts
 │   ├── audio.service.ts
 │   └── achievements.service.ts
+├── config/
+│   └── portfolio-api.ts
 └── legacy/
     └── legacy.ts
 ```
 
-> El portfolio está construido en **Angular 21 + TypeScript**, con componentes standalone.
-> Solo usa Google Fonts para las tipografías `Press Start 2P` y `VT323`.
+> Construido en **Angular 21 + TypeScript** con componentes standalone.
+> El contenido dinámico (skills, proyectos, trayectoria, testimonios) se administra desde **Google Sheets** sin tocar código.
 
 ---
 
-## 🚀 Uso
-
-### Opción 1 — Angular Dev Server
+## 🚀 Instalación local
 
 ```bash
-# Clona el repo
-git clone https://github.com/DanielC-04/portfolio-devworld.git
+# 1. Clona el repo
+git clone https://github.com/DanielC-04/Portfolio.git
 
-# Instala dependencias
+# 2. Instala dependencias
 npm install
 
-# Levanta el servidor
-npm start
+# 3. Configura el environment de desarrollo
+cp src/environments/environment.development.example.ts src/environments/environment.development.ts
+# Edita environment.development.ts y agrega la URL de Apps Script
+
+# 4. Configura el proxy
+cp proxy.conf.example.json proxy.conf.json
+# Edita proxy.conf.json y agrega la URL de Apps Script
+
+# 5. Levanta el servidor
+ng serve
 ```
 
 ---
@@ -125,16 +134,13 @@ npm start
 
 - **Angular 21** — componentes standalone
 - **TypeScript** — tipado estricto
-- **CSS3 puro** — variables CSS, flexbox, grid, `@keyframes`, `clamp()`
+- **SCSS** — estilos por componente
+- **Google Sheets + Apps Script** — CMS dinámico sin backend propio
+- **Netlify** — hosting con CI/CD automático desde GitHub
+- **Netlify DNS** — gestión de dominio `blazeops.tech`
 - **Web Audio API** — motor de sonidos 8-bit y BGM
 - **Canvas API** — minijuego runner pixel art
 - **Google Fonts** — Press Start 2P + VT323
-
----
-
-## 🔜 Próxima Versión
-
-Separacion total de la logica legacy en servicios y componentes.
 
 ---
 
@@ -142,11 +148,19 @@ Separacion total de la logica legacy en servicios y componentes.
 
 <div align="center">
 
-[![Gmail](https://img.shields.io/badge/dsotillo20@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:dsotillo20@gmail.com)
+[![Gmail](https://img.shields.io/badge/carrascoarrocha3@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:dsotillo20@gmail.com)
 [![GitHub](https://img.shields.io/badge/DanielC--04-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DanielC-04)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/TU-USUARIO-LINKEDIN)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/danielcarrasco02)
 
 </div>
+
+---
+
+## 📄 Licencia
+
+© 2026 Daniel Carrasco — All Rights Reserved
+
+Este proyecto es de uso exclusivo de su autor. No se permite copiar, modificar ni redistribuir sin autorización expresa. Ver archivo [LICENSE](./LICENSE) para más detalles.
 
 ---
 

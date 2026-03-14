@@ -31,6 +31,7 @@ modules/.vscode
 .env
 .env.*
 !.env.example
+proxy.conf.json
 
 # Angular environment variants (single-env portfolio)
 src/environments/environment.ts
@@ -68,3 +69,6 @@ baseline.json
 
 #vscode dir
 .vscode/
+
+#Proxy config
+proxy.conf.json

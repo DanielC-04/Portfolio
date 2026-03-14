@@ -3,18 +3,12 @@
     <div class="shead"><div class="shb">&#128195;</div><h2 class="sht cv-title">TRAYECTORIA &mdash; WORLD 3</h2></div>
     <div class="cv-download-wrap"><button id="cv-btn" class="btn btn-gold cv-download-btn" (click)="downloadCV()">&#11015; DESCARGAR CV</button></div>
     <div class="tl">
-      <div class="tli rev"><div class="tld">&#128640;</div>
-        <div class="tlc"><div class="tly">2024 &mdash; 2025</div><div class="tlr">DESARROLLADOR DE SOFTWARE (PASANTIA)</div><div class="tlco">LogicStudio &mdash; Panama</div>
-        <div class="tltx">.NET 8 + Angular 21 en proyectos reales. Clean Architecture, JWT, Azure Entra ID, SQL Server, Entity Framework. Explorando AI Agents con LiveKit y Python.</div></div>
-      </div>
-      <div class="tli rev"><div class="tld">&#128241;</div>
-        <div class="tlc"><div class="tly">2023</div><div class="tlr">DESARROLLO MOVIL &amp; IoT</div><div class="tlco">Proyectos Universitarios &mdash; UTP Cocle</div>
-        <div class="tltx">Android nativo con Kotlin y Java. Bluetooth Low Energy (BLE) con beacons FeasyBeacon. Foreground Services, notificaciones locales sin internet.</div></div>
-      </div>
-      <div class="tli rev"><div class="tld">&#128218;</div>
-        <div class="tlc"><div class="tly">2020 &mdash; PRESENTE</div><div class="tlr">ING. EN SISTEMAS (4to ano)</div><div class="tlco">Universidad Tecnologica de Panama &mdash; Sede Cocle</div>
-        <div class="tltx">Fundamentos en C, Java, redes, bases de datos SQL/NoSQL y arquitectura de software. Proyecto en IoT y desarrollo web.</div></div>
-      </div>
+      @for (item of experience(); track item.id ?? item.year ?? $index) {
+        <div class="tli rev on"><div class="tld">{{ item.icon || '🚀' }}</div>
+          <div class="tlc"><div class="tly">{{ item.year }}</div><div class="tlr">{{ item.role }}</div><div class="tlco">{{ item.company }}</div>
+          <div class="tltx">{{ item.description }}</div></div>
+        </div>
+      }
     </div>
   </div>
 </section>

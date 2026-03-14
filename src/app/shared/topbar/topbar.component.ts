@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { openInv, openMg, openWS, toggleAch, toggleSfx } from '../../legacy/legacy';
+import { openInv, openWS, toggleAch } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-topbar',
@@ -8,20 +8,12 @@ import { openInv, openMg, openWS, toggleAch, toggleSfx } from '../../legacy/lega
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopbarComponent {
-  toggleSfx(): void {
-    toggleSfx();
-  }
-
   openWS(): void {
     openWS();
   }
 
   openInv(): void {
     openInv();
-  }
-
-  openMg(): void {
-    openMg();
   }
 
   toggleAch(): void {

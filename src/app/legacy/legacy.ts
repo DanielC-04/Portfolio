@@ -37,19 +37,13 @@ const byId = <T extends HTMLElement>(id: string): T | null => {
 /* ===================== STATE ===================== */
 let SC = 0;
 let CO = 0;
-let sfxOn = false;
 let achOpen = false;
-let audioCtx: AudioContext | null = null;
-let bgmOn = false;
-let bgmTmr: ReturnType<typeof setTimeout> | null = null;
-let vizTmr: ReturnType<typeof setTimeout> | null = null;
 let tmr = 300;
 let comboCount = 0;
 let comboTmr: ReturnType<typeof setTimeout> | null = null;
 let comboMult = 1;
 let blocksHit = 0;
 const sectSeen: Record<string, boolean> = {};
-const vbars: HTMLDivElement[] = [];
 
 /* ===================== DATA ===================== */
 
@@ -309,7 +303,6 @@ export function hitQ(el: HTMLElement, pts: number): void {
   spawnCoin(cx, cy);
   spawnPts(pts, cx, cy);
   addScore(pts);
-  playSound('coin');
   el.style.transform = 'translateY(-16px)';
   setTimeout(() => { el.style.transform = ''; }, 160);
   blocksHit++;
@@ -332,7 +325,6 @@ export function openWS(): void {
   const ws = byId<HTMLDivElement>('ws');
   if (!ws) return;
   ws.classList.add('open');
-  playSound('sel');
 }
 
 export function closeWS(): void {
@@ -361,7 +353,7 @@ async function legacyInit(): Promise<void> {
   };
 
   setTimeout(dismiss, 2800);
-  ic.addEventListener('click', () => { dismiss(); playSound('coin'); });
+  ic.addEventListener('click', () => { dismiss(); });
   const keyHandler = (event: KeyboardEvent) => {
     const target = event.target as HTMLElement | null;
     if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT' || target.isContentEditable)) {
@@ -376,7 +368,6 @@ async function legacyInit(): Promise<void> {
 
   startTimer();
   buildAch();
-  buildViz();
   await loadSkills();
   buildInv();
   buildBoss();
@@ -391,7 +382,6 @@ function showLT(w: string, n: string): void {
   ltW.textContent = w;
   ltN.textContent = n;
   el.classList.add('show');
-  playSound('lvlup');
   setTimeout(() => { el.classList.remove('show'); }, 2000);
 }
 
@@ -411,7 +401,6 @@ function buildInv(): void {
 export function openInv(): void {
   const sec = byId<HTMLElement>('skillsec');
   if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  playSound('lvlup');
   unlockAch('inv');
 }
 
@@ -419,7 +408,6 @@ export function openInv(): void {
 export function openPm(i: number): void {
   if (!window.dispatchEvent) return;
   window.dispatchEvent(new CustomEvent('pm:open', { detail: { index: i } }));
-  playSound('sel');
   addScore(200);
 }
 
@@ -461,7 +449,6 @@ export function answerBoss(picked: number, correct: number, btn: HTMLButtonEleme
     msg.textContent = 'RESPUESTA CORRECTA! -1 HP';
     msg.style.color = 'var(--green)';
     addScore(500);
-    playSound('coin');
     if (bossHp <= 0) {
       setTimeout(() => {
         const bres = byId<HTMLDivElement>('bres');
@@ -469,7 +456,6 @@ export function answerBoss(picked: number, correct: number, btn: HTMLButtonEleme
         unlockAch('boss');
         coinRain();
         addScore(5000);
-        playSound('lvlup');
       }, 800);
     }
   } else {
@@ -478,7 +464,6 @@ export function answerBoss(picked: number, correct: number, btn: HTMLButtonEleme
     if (opts[correct]) opts[correct].className = 'bopt ok';
     msg.textContent = `INCORRECTO. La respuesta era: ${String.fromCharCode(65 + correct)}`;
     msg.style.color = 'var(--red)';
-    playSound('sel');
   }
   setTimeout(() => { msg.textContent = ''; }, 2500);
 }
@@ -521,7 +506,6 @@ export function toggleAch(): void {
   achOpen = !achOpen;
   const achp = byId<HTMLDivElement>('achp');
   if (achp) achp.classList.toggle('open', achOpen);
-  playSound('sel');
 }
 
 /* ===================== CONTACT FORM ===================== */
@@ -532,7 +516,6 @@ export function sendForm(e: Event): void {
   btn.textContent = 'MISION RECIBIDA!';
   btn.style.background = 'var(--green)';
   addScore(1000);
-  playSound('lvlup');
   unlockAch('contact');
   coinRain();
   setTimeout(() => {
@@ -574,260 +557,17 @@ function setupRevealAndTracking(): void {
 
 /* HOVER SOUNDS */
 function setupHoverSounds(): void {
-  document.querySelectorAll<HTMLElement>('a,.btn,.wb,.hbtn,.mn,.itm,.bopt').forEach((el) => {
-    el.addEventListener('mouseenter', () => { playSound('hov'); });
-  });
-}
-
-/* ===================== MINIGAME ===================== */
-const gcv = byId<HTMLCanvasElement>('gc');
-const gctx = gcv ? gcv.getContext('2d') : null;
-let gameOn = false;
-let gsc = 0;
-let ghi = 0;
-let gaf: number | null = null;
-const gp = { x: 70, y: 148, vy: 0, ground: true, w: 22, h: 26 };
-let genms: Array<{ x: number; y: number; w: number; h: number }> = [];
-let gspd = 3;
-let gframe = 0;
-let gover = false;
-
-export function openMg(): void {
-  const mg = byId<HTMLDivElement>('mg');
-  if (!mg) return;
-  mg.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  startMg();
-  playSound('lvlup');
-}
-
-export function closeMg(): void {
-  const mg = byId<HTMLDivElement>('mg');
-  if (!mg) return;
-  mg.classList.remove('open');
-  document.body.style.overflow = '';
-  gameOn = false;
-  if (gaf !== null) cancelAnimationFrame(gaf);
-}
-
-function startMg(): void {
-  gp.y = 148;
-  gp.vy = 0;
-  gp.ground = true;
-  genms = [];
-  gsc = 0;
-  gspd = 3;
-  gframe = 0;
-  gover = false;
-  gameOn = true;
-  mgLoop();
-}
-
-function mgJump(): void {
-  if (gp.ground && !gover) {
-    gp.vy = -13;
-    gp.ground = false;
-    playSound('hov');
-  }
-  if (gover) startMg();
+  // intentionally no-op: audio feedback removed
 }
 
 document.addEventListener('keydown', (e: KeyboardEvent) => {
-  if (e.code === 'Space' || e.code === 'ArrowUp') {
-    const mg = byId<HTMLDivElement>('mg');
-    if (mg && mg.classList.contains('open')) {
-      e.preventDefault();
-      mgJump();
-    }
-  }
   if (e.code === 'Escape') {
-    const mg = byId<HTMLDivElement>('mg');
     const pm = byId<HTMLDivElement>('pm');
     const ws = byId<HTMLDivElement>('ws');
-    if (mg && mg.classList.contains('open')) closeMg();
     if (pm && pm.classList.contains('open')) closePm();
     if (ws && ws.classList.contains('open')) closeWS();
   }
 });
-if (gcv) gcv.addEventListener('click', mgJump);
-
-function drawDev(x: number, y: number): void {
-  if (!gctx) return;
-  gctx.fillStyle = '#3382F6'; gctx.fillRect(x + 3, y, 14, 5);
-  gctx.fillStyle = '#ffe0b0'; gctx.fillRect(x + 2, y + 5, 18, 7);
-  gctx.fillStyle = '#1a1a2e'; gctx.fillRect(x + 5, y + 7, 3, 3); gctx.fillRect(x + 14, y + 7, 3, 3);
-  gctx.fillStyle = '#3382F6'; gctx.fillRect(x + 2, y + 12, 18, 8);
-  gctx.fillStyle = '#512BD4'; gctx.fillRect(x + 5, y + 13, 5, 7); gctx.fillRect(x + 12, y + 13, 5, 7);
-  gctx.fillStyle = '#222'; gctx.fillRect(x + 4, y + 20, 6, 4); gctx.fillRect(x + 12, y + 20, 6, 4);
-}
-
-function drawBug(bx: number, by: number): void {
-  if (!gctx) return;
-  gctx.fillStyle = '#d63031'; gctx.fillRect(bx + 4, by, 20, 6);
-  gctx.fillStyle = '#800000'; gctx.fillRect(bx, by + 6, 28, 14);
-  gctx.fillStyle = '#ff0'; gctx.fillRect(bx + 5, by + 8, 4, 4); gctx.fillRect(bx + 19, by + 8, 4, 4);
-  gctx.fillStyle = '#d63031'; gctx.fillRect(bx + 8, by + 14, 12, 4);
-  gctx.fillStyle = '#600000'; gctx.fillRect(bx + 4, by + 20, 8, 7); gctx.fillRect(bx + 16, by + 20, 8, 7);
-}
-
-function mgLoop(): void {
-  if (!gameOn || !gctx) return;
-  gctx.clearRect(0, 0, 620, 190);
-  gctx.fillStyle = '#5c94fc'; gctx.fillRect(0, 0, 620, 160);
-  gctx.fillStyle = '#c84c0c'; gctx.fillRect(0, 160, 620, 30);
-  gctx.fillStyle = '#e06020'; gctx.fillRect(0, 160, 620, 5);
-  if (!gover) {
-    gframe++;
-    gsc = Math.floor(gframe * gspd / 10);
-    gspd = 3 + gframe / 350;
-    const gs = byId<HTMLSpanElement>('gs');
-    if (gs) gs.textContent = String(gsc);
-    gp.vy += 0.75; gp.y += gp.vy;
-    if (gp.y >= 148) { gp.y = 148; gp.vy = 0; gp.ground = true; }
-    if (gframe % Math.max(55, 95 - Math.floor(gframe / 90)) === 0) genms.push({ x: 640, y: 130, w: 28, h: 28 });
-    genms.forEach((e) => { e.x -= gspd; });
-    genms = genms.filter((e) => e.x > -50);
-    genms.forEach((e) => {
-      if (gp.x + gp.w - 6 > e.x + 4 && gp.x + 6 < e.x + e.w - 4 && gp.y + gp.h - 3 > e.y + 4) {
-        gover = true;
-        if (gsc > ghi) {
-          ghi = gsc;
-          const gh = byId<HTMLSpanElement>('gh');
-          if (gh) gh.textContent = String(ghi);
-        }
-        addScore(gsc);
-      }
-    });
-    drawDev(gp.x, gp.y);
-    genms.forEach((e) => { drawBug(e.x, e.y); });
-    gctx.fillStyle = '#f8b800';
-    gctx.font = '9px "Press Start 2P",monospace';
-    gctx.fillText(`SCORE:${gsc}`, 8, 18);
-    gctx.fillText(`HI:${ghi}`, 420, 18);
-  } else {
-    gctx.fillStyle = 'rgba(0,0,0,0.75)'; gctx.fillRect(0, 0, 620, 190);
-    gctx.fillStyle = '#f8b800';
-    gctx.font = '18px "Press Start 2P",monospace';
-    gctx.textAlign = 'center'; gctx.fillText('GAME OVER', 310, 75);
-    gctx.font = '8px "Press Start 2P",monospace';
-    gctx.fillStyle = '#fff'; gctx.fillText(`SCORE: ${gsc}`, 310, 110);
-    gctx.fillText('CLICK O ESPACIO PARA REINICIAR', 310, 145);
-    gctx.textAlign = 'left';
-  }
-  gaf = requestAnimationFrame(mgLoop);
-}
-
-/* ===================== SOUND ENGINE ===================== */
-function initAudio(): void {
-  if (!audioCtx) {
-    const AudioCtor = window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    audioCtx = new AudioCtor();
-    buildViz();
-  }
-}
-
-function buildViz(): void {
-  const v = byId<HTMLDivElement>('mviz');
-  if (!v || vbars.length) return;
-  for (let i = 0; i < 50; i++) {
-    const b = document.createElement('div');
-    b.className = 'vb';
-    v.appendChild(b);
-    vbars.push(b);
-  }
-}
-
-function beep(f: number, d: number, t: OscillatorType = 'square', v = 0.1, dl = 0): void {
-  if (!audioCtx || !sfxOn) return;
-  const o = audioCtx.createOscillator();
-  const g = audioCtx.createGain();
-  o.connect(g);
-  g.connect(audioCtx.destination);
-  o.type = t;
-  const ts = audioCtx.currentTime + dl;
-  o.frequency.setValueAtTime(f, ts);
-  g.gain.setValueAtTime(v, ts);
-  g.gain.exponentialRampToValueAtTime(0.001, ts + d);
-  o.start(ts);
-  o.stop(ts + d + 0.01);
-}
-
-const SND: Record<string, () => void> = {
-  coin: () => { beep(988, 0.05); beep(1319, 0.1, 'square', 0.1, 0.06); },
-  hov: () => { beep(440, 0.03, 'square', 0.04); },
-  sel: () => { beep(523, 0.05, 'square', 0.07); },
-  lvlup: () => { [523, 659, 784, 1047].forEach((f, i) => { beep(f, 0.09, 'square', 0.09, i * 0.08); }); }
-};
-
-function playSound(n: string): void {
-  if (!sfxOn && n !== 'lvlup') return;
-  initAudio();
-  if (SND[n]) SND[n]();
-}
-
-const BGM_N: Array<[number, number]> = [
-  [659, 0.15], [659, 0.15], [0, 0.15], [659, 0.15], [0, 0.15], [523, 0.15], [659, 0.15], [784, 0.3], [0, 0.3], [392, 0.3],
-  [523, 0.3], [0, 0.15], [392, 0.3], [0, 0.15], [330, 0.3], [0, 0.15], [440, 0.3], [494, 0.15], [466, 0.15], [440, 0.3],
-  [392, 0.22], [659, 0.22], [784, 0.22], [880, 0.3], [698, 0.15], [784, 0.15], [0, 0.15], [659, 0.3], [523, 0.15], [587, 0.15], [494, 0.3]
-];
-
-function playBGM(): void {
-  if (!audioCtx || bgmOn) return;
-  const ctx = audioCtx;
-  bgmOn = true;
-  const loop = () => {
-    if (!bgmOn) return;
-    let t = ctx.currentTime + 0.05;
-    let tot = 0;
-    BGM_N.forEach((n) => {
-      if (n[0] > 0) beep(n[0], n[1] * 0.88, 'square', 0.05, t - ctx.currentTime);
-      t += n[1];
-      tot += n[1];
-    });
-    bgmTmr = setTimeout(loop, tot * 1000 + 120);
-  };
-  loop();
-  const vl = () => {
-    if (!bgmOn) return;
-    vbars.forEach((b) => {
-      const h = 3 + Math.random() * 28;
-      b.style.height = `${h}px`;
-      b.style.background = `hsl(${Math.random() * 60 + 30},100%,50%)`;
-    });
-    vizTmr = setTimeout(vl, 90);
-  };
-  vl();
-}
-
-function stopBGM(): void {
-  bgmOn = false;
-  if (bgmTmr) clearTimeout(bgmTmr);
-  if (vizTmr) clearTimeout(vizTmr);
-  vbars.forEach((b) => {
-    b.style.height = '3px';
-    b.style.background = 'var(--gold)';
-  });
-}
-
-export function toggleSfx(): void {
-  initAudio();
-  sfxOn = !sfxOn;
-  const btn = byId<HTMLButtonElement>('sfxbtn');
-  const viz = byId<HTMLDivElement>('mviz');
-  if (!btn || !viz) return;
-  if (sfxOn) {
-    btn.textContent = 'SFX ON';
-    btn.classList.add('active');
-    viz.classList.add('on');
-    playBGM();
-  } else {
-    btn.textContent = 'SFX';
-    btn.classList.remove('active');
-    viz.classList.remove('on');
-    stopBGM();
-  }
-}
-
 /* ===================== DARK MODE ===================== */
 let dmOn = false;
 export function toggleDM(): void {
@@ -863,34 +603,6 @@ export function toggleDM(): void {
     const sl = byId<HTMLDivElement>('stars-layer');
     if (sl) sl.style.display = 'none';
   }
-  playSound('sel');
-}
-
-/* ===================== ALDEANOS FORM ===================== */
-export function submitAld(e: Event): void {
-  e.preventDefault();
-  const name = byId<HTMLInputElement>('ald-name')?.value ?? '';
-  const role = byId<HTMLInputElement>('ald-role')?.value || 'Visitante';
-  const msg = byId<HTMLTextAreaElement>('ald-msg-inp')?.value ?? '';
-  if (!name || !msg) return;
-  const colors = ['#3382F6', '#f8b800', '#00b300', '#a040ff', '#d63031'];
-  const col = colors[Math.floor(Math.random() * colors.length)];
-  const card = document.createElement('div');
-  card.className = 'ald-card rev on';
-  card.style.borderColor = col;
-  card.innerHTML = `<div class="ald-hdr"><div class="ald-ava"><svg width="52" height="52" viewBox="0 0 20 20" style="image-rendering:pixelated"><rect x="6" y="0" width="8" height="2" fill="${col}"/><rect x="4" y="2" width="12" height="4" fill="${col}"/><rect x="3" y="6" width="14" height="6" fill="#ffe0b0"/><rect x="5" y="8" width="2" height="2" fill="#222"/><rect x="13" y="8" width="2" height="2" fill="#222"/><rect x="3" y="12" width="14" height="6" fill="${col}"/></svg></div><div class="ald-info"><div class="ald-name">${name.toUpperCase().substring(0, 18)}</div><div class="ald-role">${role.toUpperCase().substring(0, 20)}</div><div class="ald-rel">VISITANTE</div></div></div><div class="ald-quote">${msg.substring(0, 200)}</div><div class="ald-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>`;
-  const grid = byId<HTMLDivElement>('ald-grid');
-  if (grid) grid.appendChild(card);
-  const msgEl = byId<HTMLDivElement>('ald-msg');
-  if (msgEl) msgEl.textContent = `TESTIMONIO AGREGADO! GRACIAS, ${name.toUpperCase()}!`;
-  const nameEl = byId<HTMLInputElement>('ald-name');
-  const roleEl = byId<HTMLInputElement>('ald-role');
-  const msgInp = byId<HTMLTextAreaElement>('ald-msg-inp');
-  if (nameEl) nameEl.value = '';
-  if (roleEl) roleEl.value = '';
-  if (msgInp) msgInp.value = '';
-  addScore(500); playSound('lvlup'); coinRain();
-  setTimeout(() => { if (msgEl) msgEl.textContent = ''; }, 3000);
 }
 
 /* ===================== KONAMI CODE ===================== */
@@ -911,47 +623,12 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
 function showKonami(): void {
   const el = byId<HTMLDivElement>('konami-screen');
   if (el) el.classList.add('show');
-  addScore(9999); coinRain(); playSound('lvlup');
+  addScore(9999); coinRain();
 }
 
 export function closeKonami(): void {
   const el = byId<HTMLDivElement>('konami-screen');
   if (el) el.classList.remove('show');
-}
-
-/* ===================== CV PDF DOWNLOAD ===================== */
-export function downloadCV(): void {
-  const cvContent = 'DANIEL CARRASCO\n'
-    + 'Software Developer | .NET & Angular\n'
-    + 'dsotillo20@gmail.com | github.com/DanielC-04\nPanama\n\n'
-    + '== EXPERIENCIA ==\n'
-    + 'Desarrollador de Software - Pasantia\n'
-    + 'LogicStudio | Panama | 2024-2025\n'
-    + '.NET 8 + Angular 21, Clean Architecture, JWT, Azure Entra ID, SQL Server\n\n'
-    + '== EDUCACION ==\n'
-    + 'Ing. en Sistemas de Informacion (4to ano)\n'
-    + 'Universidad Tecnologica de Panama - Sede Cocle | 2020-Presente\n\n'
-    + '== SKILLS PRINCIPALES ==\n'
-    + 'C# / .NET 8 / Angular 21 / TypeScript / SQL Server / Entity Framework\n'
-    + 'Clean Architecture / JWT / Azure / Docker / Kotlin / Python / Git\n\n'
-    + '== CONTACTO ==\n'
-    + 'Email: dsotillo20@gmail.com\n'
-    + 'GitHub: github.com/DanielC-04';
-  const blob = new Blob([cvContent], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'Daniel_Carrasco_CV.txt';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  addScore(300); playSound('coin');
-  const btn = byId<HTMLButtonElement>('cv-btn');
-  if (btn) {
-    btn.textContent = 'DESCARGADO!';
-    setTimeout(() => { btn.textContent = 'DESCARGAR CV'; }, 2000);
-  }
 }
 
 export function initLegacy(): void {
