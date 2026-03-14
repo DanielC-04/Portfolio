@@ -1,6 +1,12 @@
 [build]
-  command = "npm run build"
+  command = "node set-env.js && npm run build"
   publish = "dist/PortfolioDanielC/browser"
+
+[[redirects]]
+  from = "/gsheets"
+  to = ":APPS_SCRIPT_URL"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
