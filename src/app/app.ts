@@ -14,8 +14,6 @@ import { HeroComponent } from './components/hero/hero.component';
 import { InsertCoinComponent } from './shared/insert-coin/insert-coin.component';
 import { KonamiScreenComponent } from './components/konami-screen/konami-screen.component';
 import { LevelTransitionComponent } from './components/level-transition/level-transition.component';
-import { MinigameModalComponent } from './shared/minigame/minigame-modal.component';
-import { MusicVisualizerComponent } from './components/music-visualizer/music-visualizer.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { ProjectModalComponent } from './components/project-modal/project-modal.component';
 import { ProjectsMapComponent } from './components/projects-map/projects-map.component';
@@ -42,8 +40,6 @@ import { WorldSelectComponent } from './components/world-select/world-select.com
     InsertCoinComponent,
     KonamiScreenComponent,
     LevelTransitionComponent,
-    MinigameModalComponent,
-    MusicVisualizerComponent,
     ProgressBarComponent,
     ProjectModalComponent,
     ProjectsMapComponent,

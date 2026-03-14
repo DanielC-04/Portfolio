@@ -1,0 +1,12 @@
+// Copia este archivo como proxy.conf.json y reemplaza TU_APPS_SCRIPT_URL_AQUI con la URL real de Apps Script
+{
+  "/gsheets/*": {
+    "target": "TU_APPS_SCRIPT_URL_AQUI",
+    "changeOrigin": true,
+    "secure": true,
+    "pathRewrite": {
+      "^/gsheets": ""
+    },
+    "followRedirects": true
+  }
+}
