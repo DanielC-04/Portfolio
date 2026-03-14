@@ -43,7 +43,7 @@ type ProjectApiItem = {
   gh?: string;
   readme?: string;
   stack?: string;
-  media?: Array<{ label?: string; type?: string; url?: string }>;
+  media?: Array<{ label?: string; type?: string; url?: string; src?: string }>;
 };
 
 function normalizeStatus(status?: string): ProjectStatus {
@@ -52,7 +52,7 @@ function normalizeStatus(status?: string): ProjectStatus {
   return 'EN DESARROLLO';
 }
 
-function normalizeMedia(media?: Array<{ label?: string; type?: string; url?: string }>): ProjectMedia[] {
+function normalizeMedia(media?: Array<{ label?: string; type?: string; url?: string; src?: string }>): ProjectMedia[] {
   if (!media || !media.length) return DEFAULT_MEDIA;
   const normalized = media.map((item, index) => {
     const fallbackLabel: ProjectMedia['label'] =
@@ -62,11 +62,13 @@ function normalizeMedia(media?: Array<{ label?: string; type?: string; url?: str
       ? item.label
       : fallbackLabel;
 
-    const type: ProjectMedia['type'] = item.type === 'image' || item.type === 'gif' ? item.type : 'placeholder';
+    const rawType = (item.type ?? '').trim().toLowerCase();
+    const type: ProjectMedia['type'] = rawType === 'image' || rawType === 'gif' ? rawType : 'placeholder';
+    const url = (item.url ?? item.src ?? '').trim();
     return {
       label,
       type,
-      url: item.url ?? ''
+      url
     };
   });
 
@@ -87,6 +89,12 @@ function mapProjectApi(item: ProjectApiItem): ProjectItem {
     stack: (item.stack ?? '').trim(),
     media: normalizeMedia(item.media)
   };
+}
+
+function findDefaultMediaIndex(project: ProjectItem | null): number {
+  const media = project?.media ?? DEFAULT_MEDIA;
+  const idx = media.findIndex((m) => (m.type === 'image' || m.type === 'gif') && !!m.url?.trim());
+  return idx >= 0 ? idx : 0;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -137,7 +145,7 @@ export class ProjectModalStateService {
     const safeIndex = Math.min(Math.max(index, 0), max);
     this.currentIndexSignal.set(safeIndex);
     this.activeTabSignal.set('INFO');
-    this.activeMediaIndexSignal.set(0);
+    this.activeMediaIndexSignal.set(findDefaultMediaIndex(this.projectsSignal()[safeIndex] ?? null));
     this.openSignal.set(true);
   }
 
@@ -148,17 +156,19 @@ export class ProjectModalStateService {
   next(): void {
     const total = this.projectsSignal().length;
     if (!total) return;
-    this.currentIndexSignal.set((this.currentIndexSignal() + 1) % total);
+    const nextIndex = (this.currentIndexSignal() + 1) % total;
+    this.currentIndexSignal.set(nextIndex);
     this.activeTabSignal.set('INFO');
-    this.activeMediaIndexSignal.set(0);
+    this.activeMediaIndexSignal.set(findDefaultMediaIndex(this.projectsSignal()[nextIndex] ?? null));
   }
 
   prev(): void {
     const total = this.projectsSignal().length;
     if (!total) return;
-    this.currentIndexSignal.set((this.currentIndexSignal() - 1 + total) % total);
+    const prevIndex = (this.currentIndexSignal() - 1 + total) % total;
+    this.currentIndexSignal.set(prevIndex);
     this.activeTabSignal.set('INFO');
-    this.activeMediaIndexSignal.set(0);
+    this.activeMediaIndexSignal.set(findDefaultMediaIndex(this.projectsSignal()[prevIndex] ?? null));
   }
 
   setTab(tab: ProjectTab): void {
