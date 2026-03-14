@@ -120,11 +120,59 @@ let bossHp = 5;
 
 /* ===================== CURSOR ===================== */
 let cur: HTMLElement | null = null;
-document.addEventListener('mousemove', (e: MouseEvent) => {
+let cursorX = 0;
+let cursorY = 0;
+let cursorVisible = false;
+
+function paintCursor(): void {
   const el = cur;
   if (!el) return;
-  el.style.left = `${e.clientX}px`;
-  el.style.top = `${e.clientY}px`;
+  el.style.left = `${cursorX}px`;
+  el.style.top = `${cursorY}px`;
+}
+
+function showCursor(): void {
+  const el = cur;
+  if (!el) return;
+  if (cursorVisible) return;
+  cursorVisible = true;
+  el.style.opacity = '1';
+}
+
+function hideCursor(): void {
+  const el = cur;
+  if (!el) return;
+  cursorVisible = false;
+  el.style.opacity = '0';
+}
+
+window.addEventListener('mousemove', (e: MouseEvent) => {
+  cursorX = e.clientX;
+  cursorY = e.clientY;
+  showCursor();
+  paintCursor();
+});
+
+window.addEventListener('scroll', () => {
+  if (!cursorVisible) return;
+  paintCursor();
+}, { passive: true });
+
+document.addEventListener('mouseenter', () => {
+  showCursor();
+  paintCursor();
+});
+
+document.addEventListener('mouseleave', () => {
+  hideCursor();
+});
+
+window.addEventListener('blur', () => {
+  hideCursor();
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) hideCursor();
 });
 
 /* ===================== PROGRESS BAR ===================== */
