@@ -3,7 +3,10 @@ const fs = require('fs');
 const env = `export const environment = {
   production: true,
   portfolioApiBaseUrl: '${process.env.PORTFOLIO_API_BASE_URL || ''}',
-  cvUrl: '${process.env.CV_URL || ''}'
+  cvUrl: '${process.env.CV_URL || ''}',
+  emailjsServiceId: '${process.env.EMAILJS_SERVICE_ID || ''}',
+  emailjsTemplateId: '${process.env.EMAILJS_TEMPLATE_ID || ''}',
+  emailjsPublicKey: '${process.env.EMAILJS_PUBLIC_KEY || ''}'
 };`;
 
 const appScriptUrl = String(process.env.APPS_SCRIPT_URL || '').trim();

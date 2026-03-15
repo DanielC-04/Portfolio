@@ -16,10 +16,11 @@
         </div>
       </div>
       <form class="fc rev" (submit)="sendForm($event)">
-        <div><label class="fl">NOMBRE:</label><input class="fi" type="text" placeholder="TU NOMBRE..."></div>
-        <div><label class="fl">EMAIL:</label><input class="fi" type="email" placeholder="TU@EMAIL.COM"></div>
-        <div><label class="fl">MENSAJE:</label><textarea class="fa" placeholder="DESCRIBE TU MISION..."></textarea></div>
-        <button type="submit" class="btn btn-gold send-btn" id="sbtn">ENVIAR MISION</button>
+        <div><label class="fl">NOMBRE:</label><input id="contact-name" class="fi" type="text" placeholder="TU NOMBRE..." required></div>
+        <div><label class="fl">EMAIL:</label><input id="contact-email" class="fi" type="email" placeholder="TU@EMAIL.COM" required></div>
+        <div><label class="fl">MENSAJE:</label><textarea id="contact-message" class="fa" placeholder="DESCRIBE TU MISION..." required></textarea></div>
+        <button type="submit" class="btn btn-gold send-btn" id="sbtn" [disabled]="isSending()">{{ isSending() ? 'ENVIANDO...' : 'ENVIAR MISION' }}</button>
+        <div id="contact-msg" class="contact-msg">{{ sendMessage() }}</div>
       </form>
     </div>
   </div>
