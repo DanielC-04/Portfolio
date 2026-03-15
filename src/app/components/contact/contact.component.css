@@ -17,6 +17,8 @@
 .fi:focus,.fa:focus{border-color:var(--gold);}
 .fa{height:5.9375rem;}
 .send-btn{width:100%;padding:.75rem;font-size:.5rem;}
+.send-btn:disabled{opacity:.7;cursor:not-allowed;}
+.contact-msg{font-family:var(--fb);font-size:.9375rem;color:var(--gold);min-height:1.25rem;}
 
 @media (max-width: 1024px){
   .cg{gap:1.5rem;}
