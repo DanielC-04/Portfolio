@@ -26,6 +26,7 @@
               "src/favicon-32x32.png",
               "src/robots.txt",
               "src/sitemap.xml",
+              
               {
                 "glob": "**/*",
                 "input": "public",
