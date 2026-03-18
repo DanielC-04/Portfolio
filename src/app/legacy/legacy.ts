@@ -141,6 +141,14 @@ function hideCursor(): void {
 }
 
 window.addEventListener('mousemove', (e: MouseEvent) => {
+  const docEl = document.documentElement;
+  const scrollbarWidth = Math.max(0, window.innerWidth - docEl.clientWidth);
+  const overVerticalScrollbar = scrollbarWidth > 0 && e.clientX >= (window.innerWidth - scrollbarWidth);
+  if (overVerticalScrollbar) {
+    hideCursor();
+    return;
+  }
+
   cursorX = e.clientX;
   cursorY = e.clientY;
   showCursor();
