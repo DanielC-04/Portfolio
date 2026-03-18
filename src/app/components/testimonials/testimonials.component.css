@@ -21,7 +21,7 @@
 .ald-inputs{display:grid;grid-template-columns:1fr 1fr;gap:.625rem;margin-bottom:.625rem;text-align:left;}
 .ald-full{grid-column:1/-1;}
 .ald-lbl{font-size:.4375rem;color:var(--gold);display:block;margin-bottom:.25rem;}
-.ald-inp,.ald-ta{width:100%;font-family:var(--fb);font-size:.5625rem;line-height:1.35;padding:.8125rem;background:#050515;border:.1875rem solid #1a1a50;color:#fff;outline:none;}
+.ald-inp,.ald-ta{width:100%;font-family:var(--fb);font-size:.875rem;line-height:1.35;padding:.8125rem;background:#050515;border:.1875rem solid #1a1a50;color:#fff;outline:none;}
 .ald-inp:focus,.ald-ta:focus{border-color:var(--gold);}
 .ald-inp,.ald-ta{min-height:2.5rem;}
 .ald-inp::placeholder,.ald-ta::placeholder{font-family:var(--fb);font-size:.9375rem;line-height:1.2;color:#9fb2c8;opacity:1;}

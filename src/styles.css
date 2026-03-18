@@ -5,7 +5,7 @@
   --blue:#3382F6;--purple:#512BD4;
   --fn:'Press Start 2P',monospace;--fb:'VT323',monospace;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;cursor:none !important;}
 html{scroll-behavior:smooth;font-size:16px;}
 body{font-family:var(--fn);background:var(--sky);color:var(--dark);overflow-x:hidden;cursor:none;}
 ::-webkit-scrollbar{width:.625rem;}

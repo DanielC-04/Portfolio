@@ -69,7 +69,7 @@
 .av{margin-bottom:1.125rem;animation:avb .55s ease-in-out infinite alternate;filter:drop-shadow(.25rem .375rem 0 rgba(0,0,0,0.5));}
 @keyframes avb{from{transform:translateY(0);}to{transform:translateY(-.8125rem);}}
 .av-svg{image-rendering:pixelated;}
-.p1-label{font-size:.25rem;color:#88bbff;text-align:center;margin-top:.1875rem;letter-spacing:.0625rem;}
+.p1-label{font-size:.4375rem;color:#88bbff;text-align:center;margin-top:.1875rem;letter-spacing:.0625rem;}
 .ht{font-size:clamp(.625rem,2.2vw,1.1875rem);color:var(--white);text-shadow:.125rem .125rem 0 var(--dark);line-height:2.15;position:relative;z-index:2;}
 .hn{display:block;font-size:clamp(.875rem,3.5vw,1.8125rem);color:var(--gold);animation:ns 2.5s linear infinite;}
 .hr{display:block;font-size:clamp(.4375rem,1.3vw,.6875rem);color:#c8d8ff;margin-top:.25rem;line-height:1.55;position:relative;z-index:2;}

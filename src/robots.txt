@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://portfoliodaniel.blazeops.tech/sitemap.xml
