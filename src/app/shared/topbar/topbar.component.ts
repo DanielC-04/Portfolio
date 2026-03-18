@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { openInv, openWS, toggleAch } from '../../legacy/legacy';
+import { openInv, openWS, toggleAch, toggleDM } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-topbar',
@@ -18,5 +18,9 @@ export class TopbarComponent {
 
   toggleAch(): void {
     toggleAch();
+  }
+
+  toggleDM(): void {
+    toggleDM();
   }
 }

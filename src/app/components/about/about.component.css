@@ -3,9 +3,9 @@
 .acard{background:var(--dark);border:.25rem solid var(--gold);padding:2rem;display:grid;grid-template-columns:9.375rem 1fr;gap:2rem;align-items:center;box-shadow:.5rem .5rem 0 var(--gdk);}
 .av-box{display:flex;flex-direction:column;align-items:center;gap:.625rem;}
 .about-avatar-svg{image-rendering:pixelated;}
-.av-lbl{font-size:.25rem;color:var(--gold);letter-spacing:.125rem;}
+.av-lbl{font-size:.375rem;color:var(--gold);letter-spacing:.125rem;}
 .at h3{font-size:.5625rem;color:var(--gold);margin-bottom:.625rem;}
-.at p{font-family:var(--fb);font-size:1.375rem;color:#ccc;line-height:1.7;}
+.at p{font-family:var(--fb);font-size:1.375rem;color:#ccc;line-height:1.7;text-align:justify;}
 .stats{display:flex;gap:.5rem;margin-top:.875rem;flex-wrap:wrap;}
 .sp{background:var(--gold);color:var(--dark);padding:.375rem .625rem;font-size:.4375rem;border:.125rem solid var(--dark);box-shadow:.1875rem .1875rem 0 var(--dark);}
 .sp b{display:block;font-family:var(--fb);font-size:1.125rem;margin-top:.125rem;}

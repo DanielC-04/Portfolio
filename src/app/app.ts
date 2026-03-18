@@ -7,7 +7,6 @@ import { ComboComponent } from './components/combo/combo.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { CursorComponent } from './components/cursor/cursor.component';
 import { CvComponent } from './components/cv/cv.component';
-import { DarkModeButtonComponent } from './components/dark-mode-button/dark-mode-button.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { GithubStatsComponent } from './components/github-stats/github-stats.component';
 import { HeroComponent } from './components/hero/hero.component';
@@ -33,7 +32,6 @@ import { WorldSelectComponent } from './components/world-select/world-select.com
     ContactComponent,
     CursorComponent,
     CvComponent,
-    DarkModeButtonComponent,
     FooterComponent,
     GithubStatsComponent,
     HeroComponent,
