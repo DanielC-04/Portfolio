@@ -11,4 +11,4 @@
 .tly{font-size:.5rem;color:var(--gold);margin-bottom:.375rem;}
 .tlr{font-size:.6875rem;color:var(--white);margin-bottom:.3125rem;}
 .tlco{font-size:.5rem;color:var(--green);margin-bottom:.5rem;}
-.tltx{font-family:var(--fb);font-size:1.3125rem;color:#666;line-height:1.5;}
+.tltx{font-family:var(--fb);font-size:1.3125rem;color:#666;line-height:1.5;text-align:justify;}

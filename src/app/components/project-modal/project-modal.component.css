@@ -91,13 +91,17 @@
 
   .pm-thumb-row{order:3;flex:0 0 2.875rem;min-height:2.875rem;}
   .pm-tabs{order:4;flex:0 0 1.9375rem;min-height:1.9375rem;}
-  .pm-tab-content{order:5;flex-basis:11.5rem;height:11.5rem;min-height:11.5rem;max-height:11.5rem;font-size:1rem;}
+  .pm-tab-content{order:5;flex-basis:8.75rem;height:8.75rem;min-height:8.75rem;max-height:8.75rem;font-size:1rem;}
 
   .pm-body > .pm-info-panel > .pm-buttons{order:6;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;width:100%;padding:.875rem;margin:0;}
   .pm-btn{width:100%;}
 
   .pm-title-main{font-size:1rem;}
   .pm-section-label{font-size:.625rem;}
+  .pm-feature-list{max-height:4.75rem;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--gold) #0a0a0a;}
+  .pm-feature-list::-webkit-scrollbar{width:.3125rem;}
+  .pm-feature-list::-webkit-scrollbar-track{background:#0a0a0a;}
+  .pm-feature-list::-webkit-scrollbar-thumb{background:var(--gold);border:.0625rem solid #6a4b00;}
   .pm-feature-list li{font-size:.75rem;}
   .pm-status-text{font-size:.6875rem;}
 }
