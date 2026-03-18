@@ -1,3 +1,9 @@
 [build]
   command = "node set-env.js && npm run build"
   publish = "dist/PortfolioDanielC/browser"
+
+[[headers]]
+for = "/assets/*"
+[headers.values]
+Accept-Ranges = "none"
+Cache-Control = "public, max-age=0, must-revalidate"
