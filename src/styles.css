@@ -12,11 +12,16 @@ body{font-family:var(--fn);background:var(--sky);color:var(--dark);overflow-x:hi
 ::-webkit-scrollbar-track{background:var(--dark);}
 ::-webkit-scrollbar-thumb{background:var(--gold);border:.125rem solid var(--dark);}
 
-body.dark-mode{--sky:#0a0a20;--dark:#f0f0f0;}
+body.dark-mode{--sky:#070b16;--dark:#08080f;--white:#e8edf5;color:#c6d1de;}
 body.dark-mode #hero{background:#0a0a20;}
-body.dark-mode .sky-l{background:#0a0a20;}
-body.dark-mode .cl{background:#1a1a40;}
-body.dark-mode .hl{background:#1a2a10 !important;}
+body.dark-mode .sky-l{background:#070b16;}
+body.dark-mode .cl{background:#151f33;}
+body.dark-mode .hl{background:#22311a !important;}
+body.dark-mode .at p,
+body.dark-mode .sl-txt,
+body.dark-mode .tltx,
+body.dark-mode .ald-quote,
+body.dark-mode .pm-tab-content{color:#c7d4e3;}
 
 /* POPUPS */
 .cpop{position:fixed;pointer-events:none;font-size:1.125rem;z-index:99000;animation:cfly .7s ease-out forwards;}
