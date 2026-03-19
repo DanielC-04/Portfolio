@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import emailjs from '@emailjs/browser';
 import { environment } from '../../../environments/environment';
+import { registerContactAchievement } from '../../legacy/legacy';
 
 @Component({
   selector: 'app-contact',
@@ -53,6 +54,7 @@ export class ContactComponent {
         message: mensaje
       });
 
+      registerContactAchievement();
       this.sendMessage.set('Mensaje enviado, te respondere pronto');
       form.reset();
     } catch {

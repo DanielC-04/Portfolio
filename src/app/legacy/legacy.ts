@@ -99,16 +99,17 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'inv', ico: '&#127922;', n: 'INVENTARIO ABIERTO', d: 'Revisaste tus skills', u: false },
   { id: 'contact', ico: '&#128172;', n: 'CO-OP INICIADO', d: 'Enviaste un mensaje', u: false },
   { id: 'night', ico: '&#127769;', n: 'BUHO NOCTURNO', d: 'Visitaste de noche', u: false },
+  { id: 'konami', ico: '&#127918;', n: 'EASTER EGG', d: 'Descubre el secreto', u: false },
   { id: 'blocks5', ico: '&#128310;', n: 'ROMPE BLOQUES', d: '5 bloques golpeados', u: false },
   { id: 'allworlds', ico: '&#127942;', n: 'MAESTRO DEL REINO', d: 'Visitaste todos los worlds', u: false }
 ];
 
 const BOSS_QS: BossQuestion[] = [
-  { q: 'Cual es el stack principal de Daniel?', opts: ['React + Django', 'Vue + Laravel', '.NET 8 + Angular 21', 'Flutter + Firebase'], a: 2 },
-  { q: 'Donde tuvo su pasantia Daniel?', opts: ['Freelance', 'Amazon Panama', 'LogicStudio Panama', 'Google LATAM'], a: 2 },
-  { q: 'Cual arquitectura usa Daniel en backend?', opts: ['Monolitica sin patrones', 'Microservicios con Spring', 'Clean Architecture (Onion)', 'MVC simple sin SOLID'], a: 2 },
-  { q: 'Cual es el hobby musical de Daniel?', opts: ['Guitarra', 'Piano', 'Bateria', 'Saxofon'], a: 3 },
-  { q: 'En que universidad estudia Daniel?', opts: ['USMA', 'UP', 'UTP Sede Cocle', 'OTEIMA'], a: 2 }
+  { q: '¿Cuál es el stack principal de Daniel?', opts: ['React + Django', 'Vue + Laravel', '.NET 8 + Angular 21', 'Flutter + Firebase'], a: 2 },
+  { q: '¿Dónde tuvo su pasantía Daniel?', opts: ['Freelance', 'Amazon Panamá', 'LogicStudio Panamá', 'Google LATAM'], a: 2 },
+  { q: '¿Cuál arquitectura usa Daniel en backend?', opts: ['Monolítica sin patrones', 'Microservicios con Spring', 'Clean Architecture (Onion)', 'MVC simple sin SOLID'], a: 2 },
+  { q: '¿Cuál es el hobby musical de Daniel?', opts: ['Guitarra', 'Piano', 'Batería', 'Saxofón'], a: 3 },
+  { q: '¿En qué universidad estudia Daniel?', opts: ['USMA', 'UP', 'UTP Sede Coclé', 'OTEIMA'], a: 2 }
 ];
 let bossHp = 5;
 
@@ -396,12 +397,16 @@ function showLT(w: string, n: string): void {
 /* ===================== INVENTORY ===================== */
 function buildInv(): void {
   const g = byId<HTMLDivElement>('inv-grid');
+
   if (!g) return;
+
   g.innerHTML = '';
+
   SKILLS.forEach((s) => {
     const d = document.createElement('div');
+    
     d.className = `itm ${s.r}`;
-    d.innerHTML = `<div class="rb ${s.r}">${s.r.toUpperCase()}</div><span class="itm-ico">${s.ico}</span><div class="itm-n">${s.n.toUpperCase()}</div><div class="itm-bar"><div class="itm-fill" style="width:${s.pct}%"></div></div><div class="itm-typ">${s.typ}</div>`;
+    d.innerHTML = `<div class="rb ${s.r}">${s.r.toUpperCase()}</div><span class="itm-ico">${s.ico}</span><div class="itm-n">${s.n.toUpperCase()}</div><div class="itm-bar"><div class="itm-fill" style="width:${s.pct}%"></div></div>`;// <div class="itm-typ">${s.typ}</div> *Dejar para modificar despues si se quiere mostrar el tipo de habilidad
     g.appendChild(d);
   });
 }
@@ -470,7 +475,7 @@ export function answerBoss(picked: number, correct: number, btn: HTMLButtonEleme
     const bhpl = byId<HTMLDivElement>('bhpl');
     if (bhpf) bhpf.style.width = `${pct}%`;
     if (bhpl) bhpl.textContent = `HP: ${bossHp} / 5`;
-    msg.textContent = 'RESPUESTA CORRECTA! -1 HP';
+    msg.textContent = '¡RESPUESTA CORRECTA! -1 HP';
     msg.style.color = 'var(--green)';
     addScore(500);
     if (bossHp <= 0) {
@@ -548,6 +553,12 @@ export function sendForm(e: Event): void {
   }, 3000);
 }
 
+export function registerContactAchievement(): void {
+  unlockAch('contact');
+  addScore(1000);
+  coinRain();
+}
+
 /* ===================== SCROLL REVEAL + SECTION TRACKING ===================== */
 function setupRevealAndTracking(): void {
   const revObs = new IntersectionObserver((entries) => {
@@ -600,18 +611,19 @@ export function toggleDM(): void {
   const btn = byId<HTMLButtonElement>('dm-btn');
   if (btn) btn.textContent = dmOn ? '\u2600\uFE0F DIA' : '\u263E NOCHE';
   if (dmOn) {
+    unlockAch('night');
     document.querySelectorAll<HTMLElement>('.sky-l,.cloud-row,.hill-row,.plat-row,.gnd').forEach((el) => {
-      el.style.filter = 'hue-rotate(200deg) brightness(0.3)';
+      el.style.filter = 'brightness(0.55) saturate(0.82)';
     });
     const hero = byId<HTMLDivElement>('hero');
-    if (hero) hero.style.background = '#0a0a20';
+    if (hero) hero.style.background = '#070b16';
     if (!byId<HTMLDivElement>('stars-layer')) {
       const sl = document.createElement('div');
       sl.id = 'stars-layer';
       sl.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:1;';
       for (let i = 0; i < 80; i++) {
         const s = document.createElement('div');
-        s.style.cssText = `position:absolute;width:2px;height:2px;background:#fff;left:${Math.random() * 100}%;top:${Math.random() * 60}%;opacity:${0.3 + Math.random() * 0.7};${Math.random() > 0.5 ? `animation:blink ${1 + Math.random() * 2}s step-end infinite;` : ''}`;
+        s.style.cssText = `position:absolute;width:2px;height:2px;background:#c7d5ff;left:${Math.random() * 100}%;top:${Math.random() * 60}%;opacity:${0.15 + Math.random() * 0.3};${Math.random() > 0.5 ? `animation:blink ${1 + Math.random() * 2}s step-end infinite;` : ''}`;
         sl.appendChild(s);
       }
       if (hero) hero.insertBefore(sl, hero.firstChild);
@@ -648,6 +660,7 @@ function showKonami(): void {
   const el = byId<HTMLDivElement>('konami-screen');
   if (el) el.classList.add('show');
   addScore(9999); coinRain();
+  unlockAch('konami');
 }
 
 export function closeKonami(): void {

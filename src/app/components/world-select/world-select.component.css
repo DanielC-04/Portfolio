@@ -5,6 +5,8 @@
 .wb{background:var(--dark);border:4px solid var(--gold);padding:16px 8px;text-align:center;cursor:pointer;transition:transform 0.15s;box-shadow:4px 4px 0 var(--gdk);}
 .wb:hover{transform:translateY(-5px);}
 .wb-i{font-size:36px;display:block;margin-bottom:8px;}
+.wb-i-github i{font-size:34px;line-height:1;color:var(--gold);display:block;}
+.wb-i-mail{color:var(--gold);}
 .wb-n{font-size:8px;color:var(--gold);margin-bottom:4px;}
 .wb-l{font-size:8px;color:var(--white);}
 

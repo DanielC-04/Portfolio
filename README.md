@@ -1,10 +1,10 @@
-# PortfolioDanielC
+# Portfolio Daniel Carrasco - Software Developer
 
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:3382F6,100:512BD4&height=200&section=header&text=DEV.WORLD%20%E2%80%94%20Portfolio&fontSize=40&fontColor=fff&animation=fadeIn&fontAlignY=38&desc=Daniel%20Carrasco%20%7C%20Pixel%20Art%20%7C%20Interactive&descAlignY=55&descSize=18" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:3382F6,100:512BD4&height=200&section=header&text=DEV.WORLD%20%E2%80%94%20Portfolio&fontSize=40&fontColor=fff&animation=fadeIn&fontAlignY=38&desc=Daniel%20Carrasco%20%7C%20Pixel%20Art%20%7C%20DEV&descAlignY=55&descSize=18" width="100%"/>
 
-# 🎮 DEV.WORLD — Portfolio de Daniel Carrasco
+#   DEV.WORLD — Portfolio de Daniel Carrasco
 
 [![Angular](https://img.shields.io/badge/Angular_21-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)]()
@@ -13,9 +13,9 @@
 [![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=for-the-badge)]()
 
 > Portfolio personal con estética **pixel art retro** inspirada en videojuegos clásicos.
-> Construido en Angular 21 con contenido dinámico desde Google Sheets, minijuego, boss fight, inventario RPG y más.
+> Construido en Angular 21 con contenido dinámico, boss fight, inventarioy más.
 
-[🕹️ Ver Demo](https://portfoliodaniel.blazeops.tech) &nbsp;·&nbsp; [📬 Contacto](mailto:carrascoarrocha3@gmail.com) &nbsp;·&nbsp; [💼 LinkedIn](https://linkedin.com/in/danielcarrasco02)
+[🕹️ Ver Demo](https://portfoliodaniel.blazeops.tech) &nbsp;·&nbsp; [📬 Contacto](mailto:danielcc.dev@gmail.com) &nbsp;·&nbsp; [💼 LinkedIn](https://linkedin.com/in/danielcarrasco02)
 
 </div>
 
@@ -29,7 +29,7 @@
 ║  ────────────────────────────────    ║
 ║         INSERT COIN TO PLAY          ║
 ║                                      ║
-║   [?] [?] [!]   ↑↑↓↓←→←→BA = 👀   ║
+║   [?] [?] [!]   ↑↑........  = 👀║
 ╚══════════════════════════════════════╝
 ```
 
@@ -47,17 +47,15 @@
 | 🔥 **Boss Fight** | Quiz interactivo sobre el perfil del desarrollador |
 | 👥 **Aldeanos** | Testimonios reales con moderación + form para dejar opiniones |
 | 📊 **GitHub Stats** | Tarjetas en vivo desde `github-profile-summary-cards` |
-| 👾 **Minijuego Runner** | Esquiva bugs pixel art. Tiene hi-score |
 | 🌙 **Modo Oscuro** | Toggle día/noche con estrellas animadas en el hero |
-| 💾 **Descargar CV** | Descarga directa del CV en PDF desde Google Drive |
+| 💾 **Descargar CV** | Descarga directa del CV en PDF |
 | ⚡ **Combo System** | Multiplicador de puntos por clicks rápidos |
 | 🪙 **Lluvia de Monedas** | Se activa al ganar el boss o enviar mensajes |
 | 🏆 **10 Logros** | Sistema de achievements desbloqueables |
-| 🎵 **BGM + Visualizador** | Música 8-bit con barras de visualización |
-| 🕹️ **Easter Egg Konami** | ↑↑↓↓←→←→BA para activar modo secreto |
+| 🕹️ **Easter Egg** | ???? activar modo secreto |
 | 🎯 **Cursor Custom** | Cursor pixel art en forma de cruz dorada |
 | 📈 **Barra de Progreso** | Scroll progress bar en la parte superior |
-| 📋 **CMS Dinámico** | Skills, proyectos, trayectoria y testimonios desde Google Sheets |
+| 📋 **CMS Dinámico** | Skills, proyectos, trayectoria y testimonios |
 
 ---
 
@@ -92,7 +90,7 @@ src/app/
 ```
 
 > Construido en **Angular 21 + TypeScript** con componentes standalone.
-> El contenido dinámico (skills, proyectos, trayectoria, testimonios) se administra desde **Google Sheets** sin tocar código.
+
 
 ---
 
@@ -123,7 +121,7 @@ ng serve
 
 | Código | Efecto |
 |---|---|
-| `↑↑↓↓←→←→BA` | Activa el modo secreto Konami (+9999 pts) |
+| `↑↑.....` | Activa el modo secreto ???(+9999 pts) |
 | Golpear 5 bloques `?` | Desbloquea el logro "Rompe Bloques" |
 | Visitar de noche (22:00–06:00) | Desbloquea el logro "Búho Nocturno" |
 | Derrotar al boss | Lluvia de monedas + logro "Boss Slayer" |
@@ -137,9 +135,6 @@ ng serve
 - **SCSS** — estilos por componente
 - **Google Sheets + Apps Script** — CMS dinámico sin backend propio
 - **Netlify** — hosting con CI/CD automático desde GitHub
-- **Netlify DNS** — gestión de dominio `blazeops.tech`
-- **Web Audio API** — motor de sonidos 8-bit y BGM
-- **Canvas API** — minijuego runner pixel art
 - **Google Fonts** — Press Start 2P + VT323
 
 ---
@@ -148,7 +143,7 @@ ng serve
 
 <div align="center">
 
-[![Gmail](https://img.shields.io/badge/carrascoarrocha3@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:dsotillo20@gmail.com)
+[![Gmail](https://img.shields.io/badge/danielcc.dev@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:danielcc.dev@gmail.com)
 [![GitHub](https://img.shields.io/badge/DanielC--04-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DanielC-04)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/danielcarrasco02)
 
