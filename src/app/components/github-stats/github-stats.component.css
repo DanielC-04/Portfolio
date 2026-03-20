@@ -1,5 +1,6 @@
 .gh-section{background:#0a0a1a;}
 .gh-title{color:#fff;}
+.gh-shb-icon{font-size:1.375rem;line-height:1;color:var(--dark);}
 .gh-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .gh-card{background:var(--dark);border:.25rem solid #1a1a50;padding:1.125rem;text-align:center;transition:border-color .2s;}
 .gh-card-full{grid-column:1 / -1;}
