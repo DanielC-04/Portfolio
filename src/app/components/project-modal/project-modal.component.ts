@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, ViewEncapsulation, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, ViewEncapsulation, computed } from '@angular/core';
 import { closePm } from '../../legacy/legacy';
 import { ProjectModalStateService, type ProjectStatus, type ProjectTab } from './project-modal.state';
 
@@ -38,6 +38,8 @@ export class ProjectModalComponent {
   protected lightboxOpen = false;
   protected lightboxUrl = '';
   protected lightboxAlt = 'Project image';
+  private previousBodyOverflow = '';
+  private bodyLockApplied = false;
 
   constructor(projectModalState: ProjectModalStateService) {
     this.stateSvc = projectModalState;
@@ -55,11 +57,13 @@ export class ProjectModalComponent {
     const customEvent = event as CustomEvent<{ index?: number }>;
     const index = customEvent.detail?.index ?? 0;
     this.stateSvc.open(index);
+    this.setBodyScrollLocked(true);
   }
 
   @HostListener('window:pm:close')
   onLegacyClose(): void {
     this.stateSvc.close();
+    this.setBodyScrollLocked(false);
   }
 
   @HostListener('document:keydown.escape')
@@ -76,7 +80,12 @@ export class ProjectModalComponent {
 
   closePm(): void {
     this.stateSvc.close();
+    this.setBodyScrollLocked(false);
     closePm();
+  }
+
+  ngOnDestroy(): void {
+    this.setBodyScrollLocked(false);
   }
 
   prev(): void {
@@ -111,5 +120,22 @@ export class ProjectModalComponent {
 
   isStatus(status: ProjectStatus): boolean {
     return this.status() === status;
+  }
+
+  private setBodyScrollLocked(locked: boolean): void {
+    const body = document.body;
+    if (locked) {
+      if (!this.bodyLockApplied) {
+        this.previousBodyOverflow = body.style.overflow;
+      }
+      body.style.overflow = 'hidden';
+      this.bodyLockApplied = true;
+      return;
+    }
+
+    if (this.bodyLockApplied) {
+      body.style.overflow = this.previousBodyOverflow;
+      this.bodyLockApplied = false;
+    }
   }
 }

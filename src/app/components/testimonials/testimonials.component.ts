@@ -30,6 +30,7 @@ type TestimonialPostResponse = {
 export class TestimonialsComponent {
   protected readonly testimonials = signal<TestimonialItem[]>([]);
   protected readonly formMessage = signal('');
+  private clearMessageTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
     void this.loadTestimonials();
@@ -70,17 +71,30 @@ export class TestimonialsComponent {
 
     if (!name || !message) {
       this.formMessage.set('Completa nombre y mensaje para enviar tu testimonio');
+      this.scheduleMessageClear();
       return;
     }
 
     try {
       await postPortfolioRoute<TestimonialPostResponse>('testimonials', { name, role, message });
       this.formMessage.set('Testimonio enviado, sera revisado antes de publicarse');
+      this.scheduleMessageClear();
       if (nameInput) nameInput.value = '';
       if (roleInput) roleInput.value = '';
       if (msgInput) msgInput.value = '';
     } catch {
       this.formMessage.set('No se pudo enviar el testimonio. Intenta nuevamente');
+      this.scheduleMessageClear();
     }
+  }
+
+  private scheduleMessageClear(): void {
+    if (this.clearMessageTimer) {
+      clearTimeout(this.clearMessageTimer);
+    }
+    this.clearMessageTimer = setTimeout(() => {
+      this.formMessage.set('');
+      this.clearMessageTimer = null;
+    }, 5000);
   }
 }

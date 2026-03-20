@@ -16,6 +16,7 @@
 @media (max-width: 768px){
   .story-box{padding:1.125rem;}
   .sl{gap:.5rem;}
-  .sl-yr{width:4.25rem;}
+  .sl-yr{width:5rem;overflow-wrap:anywhere;word-break:break-word;hyphens:auto;}
+  .sl-bub{min-width:0;}
   .sl-txt{font-size:1.1875rem;}
 }

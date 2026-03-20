@@ -12,6 +12,7 @@ import { registerContactAchievement } from '../../legacy/legacy';
 export class ContactComponent {
   protected readonly isSending = signal(false);
   protected readonly sendMessage = signal('');
+  private clearMessageTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
     if (environment.emailjsPublicKey) {
@@ -36,11 +37,13 @@ export class ContactComponent {
 
     if (!nombre || !email || !mensaje) {
       this.sendMessage.set('Completa todos los campos antes de enviar');
+      this.scheduleMessageClear();
       return;
     }
 
     if (!environment.emailjsServiceId || !environment.emailjsTemplateId || !environment.emailjsPublicKey) {
       this.sendMessage.set('Error al enviar, intenta de nuevo');
+      this.scheduleMessageClear();
       return;
     }
 
@@ -56,11 +59,23 @@ export class ContactComponent {
 
       registerContactAchievement();
       this.sendMessage.set('Mensaje enviado, te respondere pronto');
+      this.scheduleMessageClear();
       form.reset();
     } catch {
       this.sendMessage.set('Error al enviar, intenta de nuevo');
+      this.scheduleMessageClear();
     } finally {
       this.isSending.set(false);
     }
+  }
+
+  private scheduleMessageClear(): void {
+    if (this.clearMessageTimer) {
+      clearTimeout(this.clearMessageTimer);
+    }
+    this.clearMessageTimer = setTimeout(() => {
+      this.sendMessage.set('');
+      this.clearMessageTimer = null;
+    }, 5000);
   }
 }
