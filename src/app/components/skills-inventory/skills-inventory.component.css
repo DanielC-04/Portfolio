@@ -1,4 +1,6 @@
-.skills-section{background:#0d1040;}
+.skills-section{
+  background:#0d1040;
+}
 .skills-title{color:#fff;}
 .inv-intro{font-family:var(--fb);font-size:1.5rem;color:#9aa7ff;margin-bottom:1.25rem;}
 .inv-box{background:var(--dark);border:.25rem solid var(--gold);padding:1.5rem;box-shadow:.5rem .5rem 0 var(--gdk);}

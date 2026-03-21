@@ -36,7 +36,7 @@
           <div><label class="ald-lbl">ROL:</label><input class="ald-inp" id="ald-role" placeholder="Dev / Profe / Amigo..."></div>
           <div class="ald-full"><label class="ald-lbl">MENSAJE:</label><textarea class="ald-ta" id="ald-msg-inp" placeholder="Tu mensaje para Daniel..." required></textarea></div>
         </div>
-        <button type="submit" class="btn btn-gold test-submit">ENVIAR TESTIMONIO</button>
+        <button type="submit" class="btn btn-gold test-submit" [disabled]="isSending()">{{ isSending() ? 'ENVIANDO...' : 'ENVIAR TESTIMONIO' }}</button>
       </form>
       <div id="ald-msg">{{ formMessage() }}</div>
     </div>

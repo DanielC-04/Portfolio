@@ -30,6 +30,7 @@ type TestimonialPostResponse = {
 export class TestimonialsComponent {
   protected readonly testimonials = signal<TestimonialItem[]>([]);
   protected readonly formMessage = signal('');
+  protected readonly isSending = signal(false);
   private clearMessageTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
@@ -57,6 +58,7 @@ export class TestimonialsComponent {
 
   async submitAld(event: Event): Promise<void> {
     event.preventDefault();
+    if (this.isSending()) return;
 
     const form = event.target as HTMLFormElement | null;
     if (!form) return;
@@ -75,6 +77,7 @@ export class TestimonialsComponent {
       return;
     }
 
+    this.isSending.set(true);
     try {
       await postPortfolioRoute<TestimonialPostResponse>('testimonials', { name, role, message });
       this.formMessage.set('Testimonio enviado, sera revisado antes de publicarse');
@@ -85,6 +88,8 @@ export class TestimonialsComponent {
     } catch {
       this.formMessage.set('No se pudo enviar el testimonio. Intenta nuevamente');
       this.scheduleMessageClear();
+    } finally {
+      this.isSending.set(false);
     }
   }
 
